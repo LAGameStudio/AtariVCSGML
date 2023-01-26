@@ -413,7 +413,7 @@ else {
 InputCandy Simple for VCS
 =========================
 
-This is a reusable code snippet that you can copy and paste into your game in a script for your use.  It is based on [InputCandy Simple|https://github.com/LAGameStudio/InputCandy/tree/trunk/scripts/InputCandySimple] and is tuned to the above code example.
+This is a reusable code snippet that you can copy and paste into your game in a script for your use.  It is based on https://github.com/LAGameStudio/InputCandy/tree/trunk/scripts/InputCandySimple and is tuned to the above code example.
 
 The following code populates the "devices" variable from the above code:
 
