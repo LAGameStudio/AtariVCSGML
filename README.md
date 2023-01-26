@@ -5,6 +5,23 @@ For reference only, Lost Astronaut Studios is providing its player code, based o
 
 The following code is used for “Apolune 2” player controls.  Apolune 2, available in the VCS Store, supports up to 8 players, tested by attaching a hub and many third-party generic controllers.  A great way to thank Lost Astronaut Studios is to buy a copy of this game.
 
+I don't expect you to copy and paste this code, but rather it shows you how to detect if the player is using classic, or modern, with a "generalized fallback" for keyboard or generic USB controllers.
+
+If you want to identify other features of the modern controller (like shoulders, triggers) see notes at bottom of document, or try out InputCandy utility, available to developers of the Atari VCS once you have established your developer account.
+
+No other code is required than what you see in this Readme.
+
+The code attempts to answer the following questions:
+
+- Is the player using a Classic controller, or a Modern controller, or neither?
+- Is the player pressing "A"? (on the Modern this means "A" or "X")
+- Is the player pressing "B"? (on the Modern this means "B" or "Y")
+- Is the player holding or pressing the Fuji button?
+- Is the player pressing left/right or up/down (either controller, on the Modern it means either stick or dpad)?
+
+The code also supports some keyboard analogs, including a pause toggle.
+
+
 Example for Multiplayer, One Player's Step
 ==========================================
 
@@ -959,3 +976,55 @@ function get_game_controls() {
     return control_object;
 }
 ```
+
+
+
+Controller Notes
+================
+
+Controllers provide different values on Linux/VCS-OS versus Windows: Recognize there are differences in controller values provided when writing the code for controllers when “on the VCS” versus on a PC with the same controller.  It is not the same.  Notably, Linux can provide -1 to 1 instead of 0 to 1 for axis values.  Notes on the Modern and Classic controller are later in this document.    
+
+If you want to be fully aware of what these values actually are, developers should be able to download and install through the VCS STore the “InputCandy” utility provided by Lost Astronaut Studios which shows you diagnostic information about the connected controllers (in real time).
+
+
+It’s a good idea to explore the controller values for yourself using InputCandy, but here are my notes:
+
+In these notes, A is "B" means "I pressed A but the controller said B"
+
+## Modern Controller:
+Device ID 03000000503200000210000011010000
+Shows "Atari Game Controller" as name; Note that on a Windows PC, the Modern controller appears as "XInput Controller"
+
+Left Thumb Stick:
+Left-Right movement: Registers as left horizontal (gp_axislh), goes 0-1 where 0.5 is the center, Left is 0, Right is 1
+Up-Down movement: Registers as left vertical (gp_axislv), Up is 0, middle is 0.5, Down is 1,
+
+Right Thumb Stick:
+Left-Right movement: Registers as right horizontal (gp_axisrh), goes 0-1 where 0 is left and 1 is right and 0.5 is centered
+Up-Down movement: Registers as axis 4 (fifth in list, list length - 2), Up is 1 down is 0 center is 0.5 aka axis[3]
+
+Right Trigger = Axis 6th in list (length-1), goes from 0 to 1 depending on how much you have pulled it, aka axis[5]
+Left Trigger = Axis 2 3rd in list goes from 0 to 1 depending on how much you have pulled it, aka axis[2]
+
+Dpad = Hat 0, Left = "Right", Up = "Up", Right = "Down", Down = "Left"
+
+Fuji button registers as "Back/Select" (gp_select)
+Back button registers as "Left Trigger" (gp_shoulderlb)
+Menu burger button registers as "Right Trigger" (gp_shoulderrb)
+Right stick button registers as "Left Stick" button (gp_stickl)
+Left stick button registers as "Start" button (gp_start)
+
+## Classic Controller: (on bluetooth or not)
+Does not have a device name or vendor info ("Unknown"); Note that on a Windows PC, "Classic Controller" is the name, but the device description is blank on the VCS in situ.
+Device ID 0000000000000000021000000000000 (This value changes due to the fact that it is an error code (21) that indicates memory is full of garbage)
+
+Top red button 0 is A (gp_face1)
+Side bar red button 1 is B (gp_face2)
+"Back" is button 2 "X" (gp_face3)
+"Menu burger" is button 3 "Y" (gp_face4)
+"Fuji button" is "Left Shoulder" (gp_shoulderl)
+
+JoyStick = hat0, Up = "Up", Down = "Left", Left = "Right", Right = "Down"
+
+Twist/paddle is Axis 0, Axis 0-1 sometimes oscillates by .01 , aka axis[0]
+
