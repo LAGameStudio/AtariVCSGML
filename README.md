@@ -27,7 +27,7 @@ Example for Multiplayer, One Player's Step
 
 Apolune 2 controller code for o_PlayerX object (called in Step, one object per active player):
 
-```
+```gml
 if ( global.game_is_paused ) return;
 
 heartbeat+=global.dt;
