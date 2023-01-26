@@ -5,7 +5,7 @@ For reference only, Lost Astronaut Studios is providing its player code, based o
 
 The following code is used for “Apolune 2” player controls.  Apolune 2, available in the VCS Store, supports up to 8 players, tested by attaching a hub and many third-party generic controllers.  A great way to thank Lost Astronaut Studios is to buy a copy of this game.
 
-I don't expect you to copy and paste this code, but rather it shows you how to detect if the player is using classic, or modern, with a "generalized fallback" for keyboard or generic USB controllers.
+The code example is provided in two parts.  The first is "one player's step" and the second is a reusable code snippet that you can copy.
 
 If you want to identify other features of the modern controller (like shoulders, triggers) see notes at bottom of document, or try out InputCandy utility, available to developers of the Atari VCS once you have established your developer account.
 
@@ -24,6 +24,8 @@ The code also supports some keyboard analogs, including a pause toggle.
 
 Example for Multiplayer, One Player's Step
 ==========================================
+
+I don't expect you to copy and paste this code, but rather it shows you how to detect if the player is using classic, or modern, with a "generalized fallback" for keyboard or generic USB controllers.
 
 Apolune 2 controller code for o_PlayerX object (called in Step, one object per active player):
 
@@ -408,13 +410,14 @@ else {
 }
 ```
 
-InputCandy Simple
-=================
+InputCandy Simple for VCS
+=========================
+
+This is a reusable code snippet that you can copy and paste into your game in a script for your use.  It is based on [InputCandy Simple|https://github.com/LAGameStudio/InputCandy/tree/trunk/scripts/InputCandySimple] and is tuned to the above code example.
 
 The following code populates the "devices" variable from the above code:
-(Our version of the InputCandy Simple that is called in the above code)
 
-```
+```gml
 /*
   GMS_any (can be refactored easily to earlier versions)
   
