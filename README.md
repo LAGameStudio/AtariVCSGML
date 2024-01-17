@@ -1,5 +1,11 @@
 # Possible compatibility script for using modern versions of GameMaker output to Atari
 
+Apolune 2, the first game written for AtariVCS to use GameMaker, had to backport to IDE 2.3.5.589 / Runtime 2.3.5.458
+
+Without doing that, you may have issues.  The following is experimental, make sure to read up on what LD_LIBRARY_PATH is and how it works, here is one take: https://www.hpc.dtu.dk/?page_id=1180
+
+In the following wrapper script, we add "." to the path.  If your libraries live in a subfolder, you may wish to change the "." on the second line to "./libfoldername" - make sure to leave the :
+
 Atari OS is Ubuntu LTS 18.04, and the following script should wrap your game that has exported with the required libraries, if you are not using the exact backported edition:
 ```
 #!/bin/sh
