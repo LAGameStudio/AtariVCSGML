@@ -1,4 +1,14 @@
-# AtariVCS GML
+# Possible compatibility script for using modern versions of GameMaker output to Atari
+
+Atari OS is Ubuntu LTS 18.04, and the following script should wrap your game that has exported with the required libraries, if you are not using the exact backported edition:
+```
+#!/bin/sh
+export LD_LIBRARY_PATH=.:${LD_LIBRARY_PATH}
+./YourGame.x86_64
+exit 0
+```
+
+# AtariVCS GML for Atari Controllers on Windows or VCS OS
 Contains code to help GameMaker developers write code for Atari VCS controllers on the Atari VCS
 
 For reference only, Lost Astronaut Studios is providing its player code, based on the InputCandy library, which is a GML language library written by Lost Astronaut Studios for GameMaker 2.3.x and beyond, for all platforms that use a physical controller, keyboard and/or mouse: https://github.com/LAGameStudio/InputCandy
