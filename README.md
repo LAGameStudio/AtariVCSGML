@@ -50,7 +50,7 @@ Please note future versions may not work exactly the same, but similarly.  Speci
 ```
 #!/bin/sh
 export LD_LIBRARY_PATH=./usr/lib:${LD_LIBRARY_PATH}
-./YourGame.x86_64
+YourGame.x86_64
 exit 0
 ```
 	* I'll explain what the above lines mean.  Basically, the first line specifies "sh" as the shell.  You should leave it as "sh" since AtariVCS OS does _not_ have Bash.
