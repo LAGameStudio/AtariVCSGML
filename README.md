@@ -1,6 +1,6 @@
 There are two main parts of this document.  The first part deals with "How to Deploy", and the second part deals with Atari VCS Controllers.
 
-Feel free to report issues here, to directly to "Retrofriends" on the Lost Astronaut discord: https://discord.gg/fFJYFsaC7w
+Feel free to report issues here, or directly to "Retrofriends" on the Lost Astronaut discord: https://discord.gg/fFJYFsaC7w
 
 # PART 1: How to Deploy GameMaker Games onto the Atari VCS (Updated: 1/2024)
 
