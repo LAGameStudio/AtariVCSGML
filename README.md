@@ -54,7 +54,7 @@ export LD_LIBRARY_PATH=./usr/lib:${LD_LIBRARY_PATH}
 exit 0
 ```
 	* I'll explain what the above lines mean.  Basically, the first line specifies "sh" as the shell.  You should leave it as "sh" since AtariVCS OS does _not_ have Bash.
-	* The second line adds your folder 'gamelibs' _based on the game's current executing folder, aka ._ to the ``LD_LIBRARY_PATH`` variable that tells the OS not to look in the standard locations, but rather to look for the libs in this special location.
+	* The second line adds your folder 'usr/lib' _based on the game's current executing folder, aka ._ to the ``LD_LIBRARY_PATH`` variable that tells the OS not to look in the standard locations, but rather to look for the libs in this special location.
 
 * You need to set permissions of *all* of these files to 0777, ie:  ``chmod -R 0777 /where/your/game/export/lives/*``
 	* You can do this in Ubuntu prior to uploading.
@@ -67,35 +67,35 @@ bundle.ini     (with version matching dashboard, set to run runme.sh)
 runme.sh       (the script)
 ./YourGameEXE  (your game binary)
 /assets        (folder contain assets exported from GameMaker)
-/gamelibs      (folder containing each and every lib you need, example:)
-/gamelibs/libcrypto.so.1.0.0
-/gamelibs/libcurl-gnutls.so.4
-/gamelibs/libffi.so.6
-/gamelibs/libgcrypt.so.11
-/gamelibs/libGLU.so.1
-/gamelibs/libgmp.so.10        (this file was missing, we copied it from libgmp.so.10.0.4 and renamed it)
-/gamelibs/libgnutls.so.30
-/gamelibs/libgssapi_krb5.so.2
-/gamelibs/libhogweed.so.4
-/gamelibs/libidn.so.11
-/gamelibs/libk5crypto.so.3
-/gamelibs/libkeyutils.so.1
-/gamelibs/libkrb5.so.3
-/gamelibs/libkrb5support.so.0
-/gamelibs/libnettle.so.6
-/gamelibs/libp11-kit.so.0
-/gamelibs/librtmp.so.0
-/gamelibs/libssl.so.1.0.0
-/gamelibs/libtasn1.so.6
-/gamelibs/libXau.so.6
-/gamelibs/libxcb-glx.so.0
-/gamelibs/libXdamage.so.1
-/gamelibs/libXdmcp.so.6
-/gamelibs/libXext.so.6
-/gamelibs/libXfixes.so.3
-/gamelibs/libXrandr.so.2
-/gamelibs/libXrender.so.1
-/gamelibs/libXxf86vm.so.1
+/usr/libs      (folder containing each and every lib you need, example:)
+/usr/lib/libcrypto.so.1.0.0
+/usr/lib/libcurl-gnutls.so.4
+/usr/lib/libffi.so.6
+/usr/lib/libgcrypt.so.11
+/usr/lib/libGLU.so.1
+/usr/lib/libgmp.so.10        (this file was missing, we copied it from libgmp.so.10.0.4 and renamed it)
+/usr/lib/libgnutls.so.30
+/usr/lib/libgssapi_krb5.so.2
+/usr/lib/libhogweed.so.4
+/usr/lib/libidn.so.11
+/usr/lib/libk5crypto.so.3
+/usr/lib/libkeyutils.so.1
+/usr/lib/libkrb5.so.3
+/usr/lib/libkrb5support.so.0
+/usr/lib/libnettle.so.6
+/usr/lib/libp11-kit.so.0
+/usr/lib/librtmp.so.0
+/usr/lib/libssl.so.1.0.0
+/usr/lib/libtasn1.so.6
+/usr/lib/libXau.so.6
+/usr/lib/libxcb-glx.so.0
+/usr/lib/libXdamage.so.1
+/usr/lib/libXdmcp.so.6
+/usr/lib/libXext.so.6
+/usr/lib/libXfixes.so.3
+/usr/lib/libXrandr.so.2
+/usr/lib/libXrender.so.1
+/usr/lib/libXxf86vm.so.1
 ```
 
 ### Step 4: Upload to the Dashboard and Publish.  Download on your VCS and test.
