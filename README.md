@@ -11,7 +11,7 @@ There are multiple methods.  It boils down to two distinct methods.  In both cas
  	* If you can SSH into your AtariVCS or would like to try
  	* If you can SSH/SCP into your AtariVCS or an Ubuntu box, or would like to try
 * (Fallback) Backdating to GameMaker IDE 2.3.5.589 and Runtime: 2.3.5.458 (or nearby, available on the GameMaker older versions download page)
-	* Instructions are in a document available here: https://docs.google.com/document/d/1bPASvw89fePhV7ctHreugoftrYLlXfnBR53zCI7MUC8/edit?usp=drive_link
+	* Instructions are in a document available here, which also contains other useful tips about building for the Atari VCS: https://docs.google.com/document/d/1bPASvw89fePhV7ctHreugoftrYLlXfnBR53zCI7MUC8/edit?usp=drive_link
 	* Apolune 2, the first game written for AtariVCS to use GameMaker, had to backport to IDE 2.3.5.589 / Runtime 2.3.5.458
 	* You MUST have a "Legacy account Login", not the Opera One Login.
 	* If you are starting a new project,
