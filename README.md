@@ -24,6 +24,8 @@ There are multiple methods.  It boils down to two distinct methods.  In both cas
 
 The following method has been tested with GameMaker IDE: v2023.11.1.129 and Runtime: v2023.11.1.160 - this updated method was made possible as a collaboration between LostAstronaut.com (Apolune 2) and EttinSoft.com (Circus Interstellar)
 
+GameMaker exports two kinds of Linux builds: ZIP and AppImage.  You want to use the ZIP method.  GameMaker will also spit out a folder "usr" that contains some important files in the ZIP file, along with your assets folder and the game's binary executable.
+
 You need to make your own "unwrapped" AppImage, since AtariVCS-OS does not have FUSE set up properly for the default "user" in its system.  So you won't be able to use an AppImage export, which is a standard Linux way of distributing libs and assets and executables in a single file.  Instead, you are going to make your own custom one that will make it work fine on Atari VCS OS.  
 
 To do this, you need to build first on Ubuntu, then figure out what libs are being used, and include them along with your game, then use the wrapper script below to wrap your game, and tell bundle.ini to run the script rather than your game.
