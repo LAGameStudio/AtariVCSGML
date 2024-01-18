@@ -71,9 +71,9 @@ exit 0
 ```
 bundle.ini     (with version matching dashboard, set to run runme.sh)
 runme.sh       (the script)
-./YourGameEXE  (your game binary)
+./YourGame.x86_64  (your game binary)
 /assets        (folder contain assets exported from GameMaker)
-/usr/libs      (folder containing each and every lib you need, example:)
+/usr/lib/      (folder containing each and every lib you need, example:)
 /usr/lib/libcrypto.so.1.0.0
 /usr/lib/libcurl-gnutls.so.4
 /usr/lib/libffi.so.6
