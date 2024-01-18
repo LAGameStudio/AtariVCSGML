@@ -43,7 +43,11 @@ Please note future versions may not work exactly the same, but similarly.  Speci
 ### Step 2: You need to move some files around and re-zip them, with special permissions, and you are going to need a small wrapper script. 
 
 * On the Ubuntu side, you need to have a copy of your game.  Locate it in a terminal or via SSH and type the following shell command:
-	``ldd ./YourGameName``
+
+```
+ldd ./YourGameName
+```
+
 	* The output of the above command will show a list of files, and their location on the Ubuntu OS.  GameMaker provides some of these files in the ZIP file it pushes out, but we noticed one was missing in the version covered here:  libgmp.so.10  --- you will need to include absolutely all of these lib files (that generally end in so.x.x.x or similar) in a folder alongside the assets folder of your game.  It appears in a mysterious "usr" folder fully "yourgameexport/usr/libs" -- you need to keep that folder with your game, but it may be missing a lib or two, and the best way to figure out what libs it actually needs is by running the above command, then checking the list of files in the above location that GameMaker's export gave you, and rectify missing libs by filling in anything not in that folder with the files available on your Ubuntu build machine.  Otherwise, your game will crash immediately upon loading because it cannot find the required libs.
 
 * The following is the script you need to create and save as "runme.sh", and this is what you will tell ``bundle.ini`` to run instead of your game executable directly.
