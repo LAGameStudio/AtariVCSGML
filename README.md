@@ -1156,7 +1156,7 @@ Shows "Atari Game Controller" as name; Note that on a Windows PC, the Modern con
 - Right stick button registers as "Left Stick" button (gp_stickl)
 - Left stick button registers as "Start" button (gp_start)
 
-## Classic Controller: (on bluetooth or not)
+## Classic Controller: (on bluetooth or not) (Does not seem to be detected unless you "backport")
 Does not have a device name or vendor info ("Unknown"); Note that on a Windows PC, "Classic Controller" is the name, but the device description is blank on the VCS in situ.
 Device ID 0000000000000000021000000000000 (This value changes due to the fact that it is an error code (21) that indicates memory is full of garbage)
 
