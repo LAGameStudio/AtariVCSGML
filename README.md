@@ -10,10 +10,12 @@ There are multiple methods.  It boils down to two distinct methods.  In both cas
 	* If you are using a post-acquisition version of "Opera's YoyoGames GameMaker Studio" (or any version past 2.3.4)
  	* If you can SSH into your AtariVCS or would like to try
  	* If you can SSH/SCP into your AtariVCS or an Ubuntu box, or would like to try
+	* You don't plan on supporting the Atari Classic Controller, or are willing to use our work-around (see "Notes on the Classic Controller Workaround" at the end of this document)
 * (Fallback) Backdating to GameMaker IDE 2.3.5.589 and Runtime: 2.3.5.458 (or nearby, available on the GameMaker older versions download page)
 	* Instructions are in a document available here, which also contains other useful tips about building for the Atari VCS: https://docs.google.com/document/d/1bPASvw89fePhV7ctHreugoftrYLlXfnBR53zCI7MUC8/edit?usp=drive_link
 	* Apolune 2, the first game written for AtariVCS to use GameMaker, had to backport to IDE 2.3.5.589 / Runtime 2.3.5.458
 	* You MUST have a "Legacy account Login", not the Opera One Login.
+	* You will be able to write natively for the Atari Modern Controller and the Classic
 	* If you are starting a new project,
  	* or your project is simple and can be easily rebuilt from a collection of files and scripts,
   	* and don't mind going back to that version.  This version is fine but may not have all of the fixes.
@@ -1167,3 +1169,20 @@ Device ID 0000000000000000021000000000000 (This value changes due to the fact th
 - "Fuji button" is "Left Shoulder" (gp_shoulderl)
 - JoyStick = hat0, Up = "Up", Down = "Left", Left = "Right", Right = "Down"
 - Twist/paddle is Axis 0, Axis 0-1 sometimes oscillates by .01 , aka axis[0]
+
+Notes on the Classic Controller Workaround
+==========================================
+Just an update regarding GameMaker "Latest" builds running on Atari VCS.  While we have in place a process, which is actually a fairly standard process option for many different game engines, we have noticed one quirk:  The latest version of GameMaker uses a version of SDL that does not correctly detect the Atari Classic Controller when running on the VCS.  It does still detect fine in Windows, however.  And it also still works with Apolune 2, and the InputCandy application in the VCS-Dev-Store (both "Backported"). 
+
+We are currently investigating a workaround and will provide it.  For this reason I wanted to update "Current GameMaker" devs that while you can easily support the Atari Modern Controller, it doesn't seem to work with the Classic.  We are currently working on a fix/workaround.
+
+Preliminary tests are positive.  However, I want to fully flesh out everything and test it further before publishing.  We'll put it at the same github repo that we published the process.
+
+In a nutshell we've worked around this by creating a local TCP server that publishes fully working classic controller states via a localhost connection to a game.  The idea is you would launch the "GameMaker Atari Classic Controller State Publishing Service", then launch your game, your game would know to get Classic controller information from the server, and apply it to your players. 
+
+So far:
+- Server works when built in the backported copy, tested on VCS #1546
+- We tested and you can run two gamemaker games with one in the background and the second one shows up on the AtariVCS as the main screen, and they don't interfere with each other
+- Client GML library works (it actually can work across a LAN as well, but I'm not sure why you would want to use it that way ever), so it can connect to and read back JSON describing any Classics
+
+WORK IN PROGRESS, STAY TUNED
