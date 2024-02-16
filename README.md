@@ -189,7 +189,7 @@ If you are attempting to use the TCP/IP ICAtariControllerServer, you will need t
 
 ### Step 6: Using the TCP/IP Server with your GameMaker game to support Atari VCS console input
 
-So, to solve the issues with the controllers, Lost Astronaut Studios built a server that spits out devices, their states, mouse and keyboard information.  You'll want to download the projects, but you'll also want to download the AtariVCS pre-build binary, which was built with version IDE 2.3.5.589 and use that.
+So, to solve the issues with the controllers, Lost Astronaut Studios built a server that spits out devices, their states, mouse and keyboard information.  You'll want to download the projects, but you'll also want to download the AtariVCS pre-built gamepad server binary, which was built with version IDE 2.3.5.589 and use that:
 
 1. Get the pre-build IDE 589 server binary, to bundle with your AtariVCS game binary: https://github.com/LAGameStudio/AtariVCSGML/releases/tag/IC-Game-Input-Server-HD
 1. Get the client project here: https://github.com/LAGameStudio/AtariVCSGML/releases/tag/Client-Server
