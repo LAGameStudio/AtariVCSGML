@@ -1,28 +1,69 @@
-There are two main parts of this document.  The first part deals with "How to Deploy", and the second part deals with Atari VCS Controllers.
+This document deals with getting your GameMaker game to work on the AtariVCS.
 
-Feel free to report issues here, or directly to "Retrofriends" on the Lost Astronaut discord: https://discord.gg/fFJYFsaC7w
+Feel free to report issues here, or directly to "Retrofriends" on the Lost Astronaut discord in the #inputcandy channel: https://discord.gg/fFJYFsaC7w
 
-# PART 1: How to Deploy GameMaker Games onto the Atari VCS (Updated: 1/2024)
+Please note this github/readme deals with getting your game to work _on the Atari VCS Console_ and not in Windows.  In the case of using the Atari controllers on Windows, you do not need any special "servers" or code, AFAIK.  You may benefit off *Appendix: Controller Notes* at the end of the document, however.  Generally, this document deals with issues building games for the AtariVCS OS, as there have been some technical issues encountered and dealt with.  It's only for the console itself that we had to create a workaround (if you are not using IDE 589, see below)
+
+# Part 1: Summary
+
+On Windows, any version of GameMaker should build fine, and most likely you can support the Atari Modern Controller and the Atari Classic Controller without too much trouble.
+
+On the Atari VCS OS, however, you have to major implementation methods to consider to get to your goal of supporting the console and launching your game.  Pick your path as best you see fit.  It's all described in Part 2.
+
+# PART 2: How to Deploy GameMaker Games onto the Atari VCS (Updated: 1/2024)
 
 There are multiple methods.  It boils down to two distinct methods.  In both cases, these instructions should be followed assuming you know how to setup the Linux physical remote build environment, but read on if you are planning to research this later.
 
-* (Recommended) Following these instructions (below, in the next section **Preparing your GameMaker game for the Atari VCS OS**)
-	* If you are using a post-acquisition version of "Opera's YoyoGames GameMaker Studio" (or any version past 2.3.4)
- 	* If you can SSH into your AtariVCS or would like to try
- 	* If you can SSH/SCP into your AtariVCS or an Ubuntu box, or would like to try
-	* You don't plan on supporting the Atari Classic Controller, or are willing to use our work-around (see "Notes on the Classic Controller Workaround" at the end of this document)
-* (Fallback) Backdating to GameMaker IDE 2.3.5.589 and Runtime: 2.3.5.458 (or nearby, available on the GameMaker older versions download page)
-	* Instructions are in a document available here, which also contains other useful tips about building for the Atari VCS: https://docs.google.com/document/d/1bPASvw89fePhV7ctHreugoftrYLlXfnBR53zCI7MUC8/edit?usp=drive_link
-	* Apolune 2, the first game written for AtariVCS to use GameMaker, had to backport to IDE 2.3.5.589 / Runtime 2.3.5.458
-	* You MUST have a "Legacy account Login", not the Opera One Login.
-	* You will be able to write natively for the Atari Modern Controller and the Classic
-	* If you are starting a new project,
- 	* or your project is simple and can be easily rebuilt from a collection of files and scripts,
-  	* and don't mind going back to that version.  This version is fine but may not have all of the fixes.
-  	* If you use this method and your project is from a GameMaker that is newer, your project will break,
-  	* If you build a project using this version, your project will probably not work in the newer version of GameMaker without changes or other efforts.
+## Method 1: (Easiest to Port from GameMaker Latest): (Recommended) 
 
-## Preparing your GameMaker game for the Atari VCS OS
+Following these instructions (below, in the next section **Preparing your GameMaker game for the Atari VCS OS**)
+
+* If you are using a post-acquisition version of "Opera's YoyoGames GameMaker Studio" (or any version past 2.3.5)
+* If you can SSH into your AtariVCS or would like to try
+* You don't have a "Legacy Login" with GameMaker
+* You are willing to attempt to support the controllers over a network, or you are willing to accept only partial controller support of XBOX, PS4 and Atari VCS Modern (when plugged in only)
+* If you can SSH/SCP into your AtariVCS or an Ubuntu box, or would like to try
+* You don't plan on supporting the Atari Classic Controller, or are willing to use our work-around (see "Notes on the Classic Controller Workaround" at the end of this document)
+
+So, you don't feel like backporting to a legacy version of Gamemaker Studio from pre-Opera acquisition (2021)?   Not surprising.  You should be aware that building in later versions of Ubuntu or on the VCS itself will a later version of GameMaker (like current) might result in some unexpected issues around the SDL controller support. For this reason, you have two main options.
+
+Scenario A:
+* (recommended) Or, use our special InputCandy-based ICAtariControllerServerHD.zip (see Releases tab) that broadcasts device input state for keyboard, mouse, Atari Modern, other controllers and the Classic over TCP/IP directly to your game via a socket.  You put the contents into a subfolder of your game's folder, and you run the server on the Atari at the same time you run your game, like this:
+
+Scenario B:
+* (not recommended) Use GameMaker's gamepad functions or InputCandy from within your game.  (https://github.com/LAGameStudio/InputCandy)  None of the code for the controllers will work, so you will have to experiment.  XBOX controllers might work as expected, but the Modern won't, and the Classic won't even be detectible unless you use a TCPIP server.
+
+
+```
+#!/bin/sh
+# https://stackoverflow.com/questions/360201/how-do-i-kill-background-processes-jobs-when-my-shell-script-exits/2173421#2173421
+#trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
+# https://stackoverflow.com/questions/3004811/how-do-you-run-multiple-programs-in-parallel-from-a-bash-script
+(trap 'kill 0' SIGINT; ./server/ICAtariControllerServerHD & ./MyGame & wait)
+```
+
+## Method 2: (Best way to support Atari VCS OS natively)
+
+(Fallback) Backdating to GameMaker IDE 2.3.5.589 and Runtime: 2.3.5.458 (or nearby, available on the GameMaker older versions download page)
+
+Apolune 2, the first game written for AtariVCS to use GameMaker, had to backport to IDE 2.3.5.589 / Runtime 2.3.5.458
+
+Instructions are in a shared document available on Google Drive, which also contains other useful tips about building for the Atari VCS: https://docs.google.com/document/d/1bPASvw89fePhV7ctHreugoftrYLlXfnBR53zCI7MUC8/edit?usp=drive_link
+
+Taking this route:
+* You MUST have a "Legacy account Login", not the Opera One Login.
+* You will be able to write natively for the Atari Modern Controller and the Classic
+* If you are starting a new project,
+* You want the best native support for the current version of Atari VCS OS (probably the _only_ version that will ever be released)
+* or your project is simple and can be easily rebuilt from a collection of files and scripts,
+* and don't mind going back to that version.  This version is fine but may not have all of the fixes.
+* If you use this method and your project is from a GameMaker that is newer, your project will break,
+* If you build a project using this version, your project will probably not work in the newer version of GameMaker without changes or other efforts.\
+
+You can use this Readme file only to help with your controller code, you can use InputCandy or your own GML gameepad function calls.   You do not need to do anything special and can upload the ZIP with the bundle.ini file and the right permissions as described in the document.  (See section titled *Method 2: Example for Multiplayer, One Player's Step*)
+
+
+## Method 1: Preparing your GameMaker game for the Atari VCS OS (without Backdating)
 
 The following method has been tested with GameMaker IDE: v2023.11.1.129 and Runtime: v2023.11.1.160 - this updated method was made possible as a collaboration between LostAstronaut.com (Apolune 2) and EttinSoft.com (Circus Interstellar)
 
@@ -36,18 +77,20 @@ To do this, you need to build first on Ubuntu, then figure out what libs are bei
 
 Please note future versions may not work exactly the same, but similarly.  Specifically, around what libs should be included may change as GameMaker evolves.  I will explain in a detailed way, so you won't be lost.
 
+
 ### Step 0: (optional) Recommended tools for Windows users to interface with Linux/Ubuntu and AtariVCS-OS
 
 *  Get "voidtools Everything" (search on Google), it will make your life so much easier.  Pin it to your Taskbar.  Now you can find files really, really fast.
 *  Get "PuttySSH" and I also recommend TeraTerm because it supports "fullscreen" term applications better (it is found on Sourceforge, so go there directly to search for it)
 *  Get and learn how to use "WinSCP" for transferring files, storing sessions and triggering PuttySSH to do things like remotely set permissions and zip folder contents into a zip file.
-
+  
 ### Step 1: Export your Game From GameMaker for Ubuntu as a ZIP
 
 * This requires you to set up a physical Ubuntu box.  You can also use the actual AtariVCS as your physical Ubuntu box, if you have Ubuntu installed on an SSD.  To do this you can make an Ubuntu Install USB Stick.  You will plug your target SSD into the AtariVCS, as well as the Ubuntu Install Stick, and turn the AtariVCS on, and then install Ubuntu onto the SSD, avoiding overwriting the existing installation on the Atari OS's internal SSD.  Then, you will boot off your newly minted Ubuntu SSD, and your Atari will boot as though it was an Ubuntu PC.  You will use this by configuring GameMaker to target it, and configuring the Ubuntu OS you just installed with the required prerequisites.  You will need to identify its IP address, as you may need to SSH into it from your PC, or at the very least, provide the credentials to GameMaker.
 * You need to follow the current standard steps found in the GameMaker documentation and forums that discuss how to choose the right version of Ubuntu for the version of GameMaker you are using.
 * Once you are able to successfully build a Linux Build "AppImage" version of your Game and get back a successfully built file, carry on to Step 2.
 
+  
 ### Step 3: You need to move some files around and re-zip them, with special permissions, and you are going to need a small wrapper script. 
 * On the Ubuntu side, you need to have a copy of your game recently exported as an AppImage.  Locate it in a terminal or via SSH and type the following shell command:
 ```
@@ -131,7 +174,6 @@ export DISPLAY 0
 YourGame.x86_64
 ```
 
-
 To run the game remotely, you would need to login to the Atari VCS OS (there is a document provided by Atari on how to do this). Once logged in, via WinSCP you can copy your game in.
 
 To run it manually, you would do something like this to force it to use display 0 instead of display X (no display):
@@ -139,36 +181,23 @@ To run it manually, you would do something like this to force it to use display 
 
 The above code will tell the game to run on display 0 (the Atari HDMI port) -- if you are needing to run this remotely but view debug / showmessage output from GameMaker.  It's a great way to validate that you've got all the libs.  Repeat the above steps until it works.
 
+If you are attempting to use the TCP/IP ICAtariControllerServer, you will need to download and test by building the ICAtariClassicClient project, running the server, integrating the client into your game, and using it as solution on your Atari VCS.   Read the next section which covers this.
 
 
-# PART 2: AtariVCS GML for Atari Controllers on Windows or VCS OS
-Contains code to help GameMaker developers write code for Atari VCS controllers on the Atari VCS
+## Using the TCP/IP Server with your GameMaker game
 
-For reference only, Lost Astronaut Studios is providing its player code, based on the InputCandy library, which is a GML language library written by Lost Astronaut Studios for GameMaker 2.3.x and beyond, for all platforms that use a physical controller, keyboard and/or mouse: https://github.com/LAGameStudio/InputCandy
+So, to solve the issues with the controllers, Lost Astronaut Studios built a server that spits out devices, their states, mouse and keyboard information.  You'll want to download the projects, but you'll also want to download the AtariVCS pre-build binary, which was built with version IDE 2.3.5.589 and use that.
 
-**Note that FOR FREE in the Atari VCS Store, visible only to developers, is a "Free App" called InputCandy.  This app runs a diagnostic and allows you to troubleshoot and learn the GameMaker/SDL values natively on the VCS and how the VCS responds to various controllers that are third party.  You should download it and try it out with as many controllers as you own (or wish to support) that plug into the VCS USB ports.**
+# Get the pre-build IDE 589 server binary, to bundle with your AtariVCS game binary: https://github.com/LAGameStudio/AtariVCSGML/releases/tag/IC-Game-Input-Server-HD
+# Get the client project here: https://github.com/LAGameStudio/AtariVCSGML/releases/tag/Client-Server
 
-The following code is used for “Apolune 2” player controls.  Apolune 2, available in the VCS Store, supports up to 8 players, tested by attaching a hub and many third-party generic controllers.  A great way to thank Lost Astronaut Studios is to buy a copy of this game.
+The Client-Server bundle contains a version that just broadcasts classic information, but the client, also written to receive whatever data is sent from the server and output it to the debug message area, can be used as a starting place to implement support for all controllers and gamepads being used on the AtariVCS.  You should test the Client-Server operation on your Windows machine.  You can also point the client to your VCS, and run the binary version built in IDE 589, and test your controller output.  Then, you can refer to the last section of this document titled "Controller Notes" to attempt to support those specialty controllers.   Note that it may be helpful to skim the detection code in *Method 2: Example for Multiplayer, One Player's Step* but you won't be able to use any gamepad_ functions.  Instead, you need to inspect the JSON that the server is providing, and use that as the source for all of your gamepads (Atari or other brands).  It's just broadcasting the ICDevice and ICDeviceState parts of the InputCandy features described in the InputCandy wiki: https://github.com/LAGameStudio/InputCandy/wiki/InputCandy%3AAdvanced-Class-Reference
 
-The code example is provided in two parts.  The first is "one player's step" and the second is a reusable code snippet that you can copy.
-
-If you want to identify other features of the modern controller (like shoulders, triggers) see notes at bottom of document, or try out InputCandy utility, available to developers of the Atari VCS once you have established your developer account.
-
-No other code is required than what you see in this Readme.
-
-The code attempts to answer the following questions:
-
-- Is the player using a Classic controller, or a Modern controller, or neither?
-- Is the player pressing "A"? (on the Modern this means "A" or "X")
-- Is the player pressing "B"? (on the Modern this means "B" or "Y")
-- Is the player holding or pressing the Fuji button?
-- Is the player pressing left/right or up/down (either controller, on the Modern it means either stick or dpad)?
-
-The code also supports some keyboard analogs, including a pause toggle.
-
-
-Example for Multiplayer, One Player's Step
 ==========================================
+
+# Part 3: Method 2: Example for Multiplayer, One Player's Step  (Method 2, Backdating)
+
+_These code samples will only work with Method 2, building in IDE 2.3.5.589_
 
 I don't expect you to copy and paste this code, but rather it shows you how to detect if the player is using classic, or modern, with a "generalized fallback" for keyboard or generic USB controllers.
 
@@ -555,8 +584,7 @@ else {
 }
 ```
 
-InputCandy Simple for VCS
-=========================
+## InputCandy Simple for VCS (Method 2, Backdating)
 
 This is a reusable code snippet that you can copy and paste into your game in a script for your use.  It is based on https://github.com/LAGameStudio/InputCandy/tree/trunk/scripts/InputCandySimple and is tuned to the above code example.
 
@@ -1125,10 +1153,14 @@ function get_game_controls() {
 }
 ```
 
+==========================
 
 
-Controller Notes
+
+Appendix: Controller Notes
 ================
+
+The following behavior should be seen in Backported (Method 2) IDE 589 and using the TCP/IP ICAtariControllerServer.zip 
 
 Controllers provide different values on Linux/VCS-OS versus Windows: Recognize there are differences in controller values provided when writing the code for controllers when “on the VCS” versus on a PC with the same controller.  It is not the same.  Notably, Linux can provide -1 to 1 instead of 0 to 1 for axis values.  Notes on the Modern and Classic controller are later in this document.    
 
@@ -1170,11 +1202,12 @@ Device ID 0000000000000000021000000000000 (This value changes due to the fact th
 - JoyStick = hat0, Up = "Up", Down = "Left", Left = "Right", Right = "Down"
 - Twist/paddle is Axis 0, Axis 0-1 sometimes oscillates by .01 , aka axis[0]
 
-Notes on the Classic Controller Workaround
-==========================================
+## Notes on the Classic Controller Workaround
+_The following section announced issues discovered prior to creation of the TCP/IP ICAtariControllerServer, it's left here as notes_
+
 Just an update regarding GameMaker "Latest" builds running on Atari VCS.  While we have in place a process, which is actually a fairly standard process option for many different game engines, we have noticed one quirk:  The latest version of GameMaker uses a version of SDL that does not correctly detect the Atari Classic Controller when running on the VCS.  It does still detect fine in Windows, however.  And it also still works with Apolune 2, and the InputCandy application in the VCS-Dev-Store (both "Backported"). 
 
-We are currently investigating a workaround and will provide it.  For this reason I wanted to update "Current GameMaker" devs that while you can easily support the Atari Modern Controller, it doesn't seem to work with the Classic.  We are currently working on a fix/workaround.
+For this reason I wanted to update "Current GameMaker" devs that while you can easily support the Atari Modern Controller, it doesn't seem to work with the Classic.  Also, I've heard reports that the Modern Controller when not plugged in acts whacky or disappears from the device list, except in the TCP/IP server.
 
 Preliminary tests are positive.  However, I want to fully flesh out everything and test it further before publishing.  We'll put it at the same github repo that we published the process.
 
@@ -1185,4 +1218,4 @@ So far:
 - We tested and you can run two gamemaker games with one in the background and the second one shows up on the AtariVCS as the main screen, and they don't interfere with each other
 - Client GML library works (it actually can work across a LAN as well, but I'm not sure why you would want to use it that way ever), so it can connect to and read back JSON describing any Classics
 
-WORK IN PROGRESS, STAY TUNED
+
