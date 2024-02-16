@@ -4,7 +4,7 @@ Feel free to report issues here, or directly to "Retrofriends" on the Lost Astro
 
 Please note this github/readme deals with getting your game to work _on the Atari VCS Console_ and not in Windows.  In the case of using the Atari controllers on Windows, you do not need any special "servers" or code, AFAIK.  You may benefit off *Appendix: Controller Notes* at the end of the document, however.  Generally, this document deals with issues building games for the AtariVCS OS, as there have been some technical issues encountered and dealt with.  It's only for the console itself that we had to create a workaround (if you are not using IDE 589, see below)
 
-# Part 1: Summary
+# PART 1: Summary
 
 On Windows, any version of GameMaker should build fine, and most likely you can support the Atari Modern Controller and the Atari Classic Controller without too much trouble.
 
@@ -195,7 +195,7 @@ The Client-Server bundle contains a version that just broadcasts classic informa
 
 ==========================================
 
-# Part 3: Method 2: Example for Multiplayer, One Player's Step  (Method 2, Backdating)
+# PART 3: Method 2: Backdated to 589: Example for Multiplayer, One Player's Step
 
 _These code samples will only work with Method 2, building in IDE 2.3.5.589_
 
@@ -1157,8 +1157,7 @@ function get_game_controls() {
 
 
 
-Appendix: Controller Notes
-================
+# PART 4: Appendix: Controller Notes
 
 The following behavior should be seen in Backported (Method 2) IDE 589 and using the TCP/IP ICAtariControllerServer.zip 
 
