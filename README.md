@@ -95,22 +95,22 @@ Please note future versions may not work exactly the same, but similarly.  Speci
 
   
 ### Step 3: You need to move some files around and re-zip them, with special permissions, and you are going to need a small wrapper script. 
-* On the Ubuntu side, you need to have a copy of your game recently exported as an AppImage.  Locate it in a terminal or via SSH and type the following shell command:
+
+On the Ubuntu side, you need to have a copy of your game recently exported as an AppImage.  Locate it in a terminal or via SSH and type the following shell command:
+
 ```
 ldd ./YourGameName
 ```
-* The output of the above command will show a list of files, and their location on the Ubuntu OS.  Those listed files will be on the left hand side.  Those are the library files required for the game to run.  When GameMaker outputs an AppImage, it collects the lib files in a folder called ``AppDir/usr/lib/`` --- but we noticed one was missing in the version covered here:  ``libgmp.so.10``  --- you will need to _include absolutely all of these lib files_ (that generally end in so.x.x.x or similar) in a folder alongside the assets folder of your game. NOTE: It may be missing another lib or two, and the best way to figure out what libs it actually needs is by running the above command, then checking the list of files in the above location that GameMaker's export gave you, and rectify missing libs by filling in anything not in that folder with the files available on your Ubuntu build machine.  Otherwise, your game will crash immediately upon loading because it cannot find the required libs.  This is always a good indicator that there is a library issue.  The LDD utility and lib files are part of the dynamic library loading system that handles this before a game's execution can begin.  To search the Ubuntu system to find a file by name or partial name, use the command ``find -name "libgmp.so.10" /`` or equivalent.
+
+The output of the above command will show a list of files, and their location on the Ubuntu OS.  Those listed files will be on the left hand side.  Those are the library files required for the game to run.  When GameMaker outputs an AppImage, it collects the lib files in a folder called ``AppDir/usr/lib/`` --- but we noticed one was missing in the version covered here:  ``libgmp.so.10``  --- you will need to _include absolutely all of these lib files_ (that generally end in so.x.x.x or similar) in a folder alongside the assets folder of your game. NOTE: It may be missing another lib or two, and the best way to figure out what libs it actually needs is by running the above command, then checking the list of files in the above location that GameMaker's export gave you, and rectify missing libs by filling in anything not in that folder with the files available on your Ubuntu build machine.  Otherwise, your game will crash immediately upon loading because it cannot find the required libs.  This is always a good indicator that there is a library issue.  The LDD utility and lib files are part of the dynamic library loading system that handles this before a game's execution can begin.  To search the Ubuntu system to find a file by name or partial name, use the command ``find -name "libgmp.so.10" /`` or equivalent.
 
 1. Create a new folder we will call ``YourGame_unwrapped`` (but you can name it whatever you want) .. this is where you will build your "unwrapped AppImage" and you will copy or move files into it and then set the permissions, create the bundle and ZIP it, then SCP it out when you are done.
-
 2. Create a subfolder of ``YourGame_unwrapped`` called ``YourGame_unwrapped/libs``
-
-3. Copy or move some files around:
- - Locate the files on your Ubuntu build services or extract as previously explained.  The required files are in three folders inside the folder ``AppDir``.
- - ``AppDir/usr/bin/YourGame.x86_64`` is the binary executable, you should copy this this to ``YourGame_unwrapped``
- - ``AppDir/usr/lib/*`` are all of the lib files (we hope) you will need, though we found one straggler you may need to locate elsewhere on your system.  Copy them to the subfolder you created earlier ``YourGame_unwrapped/libs/``
- - ``AppDir/assets/`` is a folder that is easier to move than copy, so move it to ``YourGame_unwrapped`` such that it is now ``YourGame_unwrapped/assets``
-
+3. Copy or move some files around.
+	1. Locate the files on your Ubuntu build services or extract as previously explained.  The required files are in three folders inside the folder ``AppDir``.
+	2. ``AppDir/usr/bin/YourGame.x86_64`` is the binary executable, you should copy this this to ``YourGame_unwrapped``
+	3. ``AppDir/usr/lib/*`` are all of the lib files (we hope) you will need, though we found one straggler you may need to locate elsewhere on your system.  Copy them to the subfolder you created earlier ``YourGame_unwrapped/libs/``
+	4. ``AppDir/assets/`` is a folder that is easier to move than copy, so move it to ``YourGame_unwrapped`` such that it is now ``YourGame_unwrapped/assets``
 4. The following is the script you need to create and save as "runme.sh", and this is what you will tell ``bundle.ini`` to run instead of your game executable directly.  You should place this directly next to your game's executable in the ``YourGame_unwrapped`` folder.
 
 ```
@@ -120,14 +120,17 @@ YourGame.x86_64
 exit 0
 ```
 
- - I'll explain what the above lines mean.  Basically, the first line specifies "sh" as the shell.  You should leave it as "sh" since AtariVCS OS does _not_ have Bash.
- - The second line adds your folder 'usr/lib' _based on the game's current executing folder, aka ._ to the ``LD_LIBRARY_PATH`` variable that tells the OS not to look in the standard locations, but rather to look for the libs in this special location.
- - You need to set permissions of *all* of these files to 0777, ie:  ``chmod -R 0777 /where/your/game/export/lives/*``
-   - You can do this in Ubuntu prior to uploading.
-   - Or, you can do this on Windows by using Ubuntu via Windows-Subsystem-For-Linux (WSL), I prefer this way because I can do it all from the same machine I'm working on with GameMaker.
-   - Or, if you want extra pain, you can reboot Atari VCS OS after copying to Windows, copy the files via SCP to the Atari, set the perms, zip it, then copy it back to Windows and upload it, or something to that effect.
- - So, to sum up, your game folder you are going to ZIP and upload to AtariVCS Developer Dashboard should contain something like this:
+I'll explain what the above lines mean. 
 
+1. Basically, the first line specifies "sh" as the shell.  You should leave it as "sh" since AtariVCS OS does _not_ have Bash.
+2. The second line adds your folder 'usr/lib' _based on the game's current executing folder, aka ._ to the ``LD_LIBRARY_PATH`` variable that tells the OS not to look in the standard locations, but rather to look for the libs in this special location.
+
+You need to set permissions of *all* of these files to 0777, ie:  ``chmod -R 0777 /where/your/game/export/lives/*``
+  - You can do this in Ubuntu prior to uploading.
+  - Or, you can do this on Windows by using Ubuntu via Windows-Subsystem-For-Linux (WSL), I prefer this way because I can do it all from the same machine I'm working on with GameMaker.
+  - Or, if you want extra pain, you can reboot Atari VCS OS after copying to Windows, copy the files via SCP to the Atari, set the perms, zip it, then copy it back to Windows and upload it, or something to that effect.
+
+ So, to sum up, your game folder you are going to ZIP and upload to AtariVCS Developer Dashboard should contain something like this:
 ```
 bundle.ini     (with version matching dashboard, set to run runme.sh)
 runme.sh       (the script)
