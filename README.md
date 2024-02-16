@@ -61,7 +61,7 @@ Taking this route:
 * or your project is simple and can be easily rebuilt from a collection of files and scripts,
 * and don't mind going back to that version.  This version is fine but may not have all of the fixes.
 * If you use this method and your project is from a GameMaker that is newer, your project will break,
-* If you build a project using this version, your project will probably not work in the newer version of GameMaker without changes or other efforts.\
+* If you build a project using this version, your project will probably not work in the newer version of GameMaker without changes or other efforts.
 
 You can use this Readme file only to help with your controller code, you can use InputCandy or your own GML gameepad function calls.   You do not need to do anything special and can upload the ZIP with the bundle.ini file and the right permissions as described in the document.  (See section titled *Method 2: Example for Multiplayer, One Player's Step*)
 
