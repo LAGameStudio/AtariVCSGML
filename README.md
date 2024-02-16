@@ -30,17 +30,20 @@ So, you don't feel like backporting to a legacy version of Gamemaker Studio from
 Scenario A:
 * (recommended) Or, use our special InputCandy-based ICAtariControllerServerHD.zip (see Releases tab) that broadcasts device input state for keyboard, mouse, Atari Modern, other controllers and the Classic over TCP/IP directly to your game via a socket.  You put the contents into a subfolder of your game's folder, and you run the server on the Atari at the same time you run your game, like this:
 
-Scenario B:
-* (not recommended) Use GameMaker's gamepad functions or InputCandy from within your game.  (https://github.com/LAGameStudio/InputCandy)  None of the code for the controllers will work, so you will have to experiment.  XBOX controllers might work as expected, but the Modern won't, and the Classic won't even be detectible unless you use a TCPIP server.
-
-
 ```
 #!/bin/sh
 # https://stackoverflow.com/questions/360201/how-do-i-kill-background-processes-jobs-when-my-shell-script-exits/2173421#2173421
 #trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
 # https://stackoverflow.com/questions/3004811/how-do-you-run-multiple-programs-in-parallel-from-a-bash-script
-(trap 'kill 0' SIGINT; ./server/ICAtariControllerServerHD & ./MyGame & wait)
+(trap 'kill 0' SIGINT SIGTERM EXIT; ./server/ICAtariControllerServerHD & ./MyGame & wait)
 ```
+
+In the above script we are syncing up two processes.  First, you run the server.  Then, you run ./MyGame -- ideally both will exit at the same time if killed or otherwise terminated.  Atari VCS, when you run two games, the latest game run shows up on the screen.  So, if you first run the server, then the game, which is basically a client of that localhost server, your game will be on the screen, hiding the server.  It can pull data from the server which happens to be that reliable Atari VCS controller data you want.  You want the server to shut down when the client shuts down.  If you leave the server running, though, subsequent calls to run the server won't succeed.  Clients can connect and disconnect as much as they want.  The server itself doesn't have any security concerns because it just broadcasts and ignores all input sent its way.  It is also tuned to only respond to GameMaker games, as it is not a "raw" TCP/IP server.
+
+Scenario B:
+* (not recommended) Use GameMaker's gamepad functions or InputCandy from within your game.  (https://github.com/LAGameStudio/InputCandy)  None of the code for the controllers will work, so you will have to experiment.  XBOX controllers might work as expected, but the Modern won't, and the Classic won't even be detectible unless you use a TCPIP server.
+
+
 
 ## Method 2: (Best way to support Atari VCS OS natively)
 
