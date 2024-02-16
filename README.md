@@ -189,10 +189,12 @@ If you are attempting to use the TCP/IP ICAtariControllerServer, you will need t
 
 ### Step 6: Using the TCP/IP Server with your GameMaker game to support Atari VCS console input
 
-So, to solve the issues with the controllers, Lost Astronaut Studios built a server that spits out devices, their states, mouse and keyboard information.  You'll want to download the projects, but you'll also want to download the AtariVCS pre-built gamepad server binary, which was built with version IDE 2.3.5.589 and use that:
+So, to solve the issues with the controllers, Lost Astronaut Studios built a TCP/IP server that spits out devices, their states, mouse and keyboard information.  Your game can connect to it on the same "localhost" and get really fast updates to controller states (gamepad buttons, axis, hats, plus keyboard keys, mouse position and click state, etc.)  ... around this you can build support for the XBOX, PS4, Atari VCS Modern and Atari VCS Classic gamepads -- really any SDL-compatible USB device that is detectable as a joystick/gamepad/etc.
 
-1. Get the pre-build IDE 589 server binary, to bundle with your AtariVCS game binary: https://github.com/LAGameStudio/AtariVCSGML/releases/tag/IC-Game-Input-Server-HD
-1. Get the client project here: https://github.com/LAGameStudio/AtariVCSGML/releases/tag/Client-Server
+You'll want to download the projects, but you'll also want to download the AtariVCS pre-built gamepad server binary, which was built with version IDE 2.3.5.589 and use that:
+
+1. Get the pre-built-in-IDE-589 server binary, to bundle with your AtariVCS game, and to run alongside: https://github.com/LAGameStudio/AtariVCSGML/releases/tag/IC-Game-Input-Server-HD
+1. Get the client project to learn from and test "networked" gamepad input state acquisition, here: https://github.com/LAGameStudio/AtariVCSGML/releases/tag/Client-Server
 
 The Client-Server bundle contains a version that just broadcasts classic information, but the client, also written to receive whatever data is sent from the server and output it to the debug message area, can be used as a starting place to implement support for all controllers and gamepads being used on the AtariVCS.  You should test the Client-Server operation on your Windows machine.  You can also point the client to your VCS, and run the binary version built in IDE 589, and test your controller output.  Then, you can refer to the last section of this document titled "Controller Notes" to attempt to support those specialty controllers.   Note that it may be helpful to skim the detection code in *Method 2: Example for Multiplayer, One Player's Step* but you won't be able to use any gamepad_ functions.  Instead, you need to inspect the JSON that the server is providing, and use that as the source for all of your gamepads (Atari or other brands).  It's just broadcasting the ICDevice and ICDeviceState parts of the InputCandy features described in the InputCandy wiki: https://github.com/LAGameStudio/InputCandy/wiki/InputCandy%3AAdvanced-Class-Reference
 
