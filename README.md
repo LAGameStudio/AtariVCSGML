@@ -8,7 +8,7 @@ Please note this github/readme deals with getting your game to work _on the Atar
 
 On Windows, any version of GameMaker should build fine, and most likely you can support the Atari Modern Controller and the Atari Classic Controller without too much trouble.
 
-On the Atari VCS OS, however, you have to major implementation methods to consider to get to your goal of supporting the console and launching your game.  Pick your path as best you see fit.  It's all described in Part 2.
+On the Atari VCS OS, however, you have two major implementation methods to consider to get to your goal of supporting the console and launching your game.  Pick your path as best you see fit.  It's all described in Part 2.
 
 # PART 2: How to Deploy GameMaker Games onto the Atari VCS (Updated: 1/2024)
 
