@@ -1,5 +1,17 @@
 This document deals with getting your GameMaker game to work on the AtariVCS.
 
+Note that we've recently released a raw TCP/IP version to help Godot 4 users detect and manage the Atari Classic Controller on the VCS.
+
+# Release Summary
+
+* GameMaker localhost network client-server for All Controllers (InputCandy-over-TCPIP), localhost port 1234 (TCP/IP) and 1235 (UDP)
+	* https://github.com/LAGameStudio/AtariVCSGML/releases/tag/IC-Game-Input-Server-HD
+* GameMaker localhost network client-server for Classic, localhost port 1234 (TCP/IP) and 1235 (UDP)
+	* https://github.com/LAGameStudio/AtariVCSGML/releases/tag/Classic
+ 	* https://github.com/LAGameStudio/AtariVCSGML/releases/tag/Client-Server
+* Generic TCP/IP server that does not filter for GameMaker clients, localhost port 1234 (TCP/IP) and 1235 (UDP) (use with Godot4, Unity, whatever)
+	* https://github.com/LAGameStudio/AtariVCSGML/releases/tag/Raw-Servers Raw TCP/IP version
+
 Feel free to report issues here, or directly to "Retrofriends" on the Lost Astronaut discord in the #inputcandy channel: https://discord.gg/fFJYFsaC7w
 
 Please note this github/readme deals with getting your game to work _on the Atari VCS Console_ and not in Windows.  In the case of using the Atari controllers on Windows, you do not need any special "servers" or code, AFAIK.  You may benefit off *Appendix: Controller Notes* at the end of the document, however.  Generally, this document deals with issues building games for the AtariVCS OS, as there have been some technical issues encountered and dealt with.  It's only for the console itself that we had to create a workaround (if you are not using IDE 589, see below)
