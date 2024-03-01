@@ -218,6 +218,18 @@ You'll want to download the projects, but you'll also want to download the Atari
 
 The Client-Server bundle contains a version that just broadcasts classic information, but the client, also written to receive whatever data is sent from the server and output it to the debug message area, can be used as a starting place to implement support for all controllers and gamepads being used on the AtariVCS.  You should test the Client-Server operation on your Windows machine.  You can also point the client to your VCS, and run the binary version built in IDE 589, and test your controller output.  Then, you can refer to the last section of this document titled "Controller Notes" to attempt to support those specialty controllers.   Note that it may be helpful to skim the detection code in *Method 2: Example for Multiplayer, One Player's Step* but you won't be able to use any gamepad_ functions.  Instead, you need to inspect the JSON that the server is providing, and use that as the source for all of your gamepads (Atari or other brands).  It's just broadcasting the ICDevice and ICDeviceState parts of the InputCandy features described in the InputCandy wiki: https://github.com/LAGameStudio/InputCandy/wiki/InputCandy%3AAdvanced-Class-Reference
 
+This function will swap between InputCandy and "remote" InputCandy (on the controller server), so if you switch your game code to use InputCandy Advanced, without the ICActions parts, you should be fine on both Windows and Atari:
+
+```
+function GetPlayerControllerProfile(pn) {
+    var player_index=pn-1;
+        if ( !variable_global_exists("pad_server") ) return false;         if ( is_struct(global.pad_server) and player_index < array_length(global.pad_server.d) ) return global.pad_server.d[player_index];
+    var dv=__INPUTCANDY.players[player_index].device;
+    if ( dv == none or dv < 0 or dv >= array_length(__INPUTCANDY.devices) ) return false;
+    return __INPUTCANDY.devices[dv];
+}
+```
+
 ==========================================
 
 # PART 3: Method 2: Backdated to 589: Example for Multiplayer, One Player's Step
