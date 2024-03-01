@@ -218,6 +218,8 @@ You'll want to download the projects, but you'll also want to download the Atari
 
 The Client-Server bundle contains a version that just broadcasts classic information, but the client, also written to receive whatever data is sent from the server and output it to the debug message area, can be used as a starting place to implement support for all controllers and gamepads being used on the AtariVCS.  You should test the Client-Server operation on your Windows machine.  You can also point the client to your VCS, and run the binary version built in IDE 589, and test your controller output.  Then, you can refer to the last section of this document titled "Controller Notes" to attempt to support those specialty controllers.   Note that it may be helpful to skim the detection code in *Method 2: Example for Multiplayer, One Player's Step* but you won't be able to use any gamepad_ functions.  Instead, you need to inspect the JSON that the server is providing, and use that as the source for all of your gamepads (Atari or other brands).  It's just broadcasting the ICDevice and ICDeviceState parts of the InputCandy features described in the InputCandy wiki: https://github.com/LAGameStudio/InputCandy/wiki/InputCandy%3AAdvanced-Class-Reference
 
+You'll need the object from the ICAtariClassicClient, above, and a copy of InputCandy:
+
 This function will swap between InputCandy and "remote" InputCandy (on the controller server), so if you switch your game code to use InputCandy Advanced, without the ICActions parts, you should be fine on both Windows and Atari:
 
 ```
@@ -230,6 +232,10 @@ function GetPlayerControllerProfile(pn) {
 	return __INPUTCANDY.devices[dv];
 }
 ```
+
+This means you cannot call ``gamepad_*`` functions anymore.  You need to get the data out of InputCandy's ``device[x]`` structure, described in [ICDeviceState on the InputCandy wiki](https://github.com/LAGameStudio/InputCandy/wiki/InputCandy%3AAdvanced-Class-Reference#icdevicestate) 
+
+All you need to do is import the InputCandy project to your game, and instantiate a persistent o_InputCandy object.  Customize the Init({}) function, as demo'ed in the InputCandy project.  This will call the ICInit and ICStep for you.  You won't need to worry about ICMatch or ICMatchDirectional or the InputCandySimple code, just read the values as though you called gamepad_* but instead get them from the ICDeviceState per-frame snapshot.
 
 ==========================================
 
