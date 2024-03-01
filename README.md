@@ -164,18 +164,25 @@ This function will swap between InputCandy and "remote" InputCandy (on the contr
 // Returns only the controller state for a given player number
 function GetPlayerControllerProfile(pn) {
 	var player_index=pn-1;
-        if ( !variable_global_exists("pad_server") ) return false;
-	if ( is_struct(global.pad_server) and player_index < array_length(global.pad_server.d) ) return global.pad_server.d[player_index];
+        if ( variable_global_exists("pad_server") ) {
+		if ( is_struct(global.pad_server) ) {
+			if ( player_index < array_length(global.pad_server.d) ) return global.pad_server.d[player_index];
+		}
+	}
 	var dv=__INPUTCANDY.players[player_index].device;
 	if ( dv == none or dv < 0 or dv >= array_length(__INPUTCANDY.devices) ) return false;
 	return __INPUTCANDY.devices[dv];
+	if ( is_struct(global.pad_server) and player_index < array_length(global.pad_server.d) ) return global.pad_server.d[player_index];
 }
 
 // Returns only the controller state for a given player number
 function GetPlayerControllerState(pn) {
 	var player_index=pn-1;
-        if ( !variable_global_exists("pad_server") ) return false;
-	if ( is_struct(global.pad_server) and player_index < array_length(global.pad_server.s) ) return global.pad_server.d[player_index];
+        if ( variable_global_exists("pad_server") ) {
+		if ( is_struct(global.pad_server) ) {
+			if ( player_index < array_length(global.pad_server.d) ) return global.pad_server.s[player_index];
+		}
+	}
 	var dv=__INPUTCANDY.players[player_index].device;
 	if ( dv == none or dv < 0 or dv >= array_length(__INPUTCANDY.devices) ) return false;
 	return __INPUTCANDY.states[dv];
