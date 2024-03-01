@@ -156,18 +156,54 @@ You'll want to download the projects, but you'll also want to download the Atari
 
 The Client-Server bundle contains a version that just broadcasts classic information, but the client, also written to receive whatever data is sent from the server and output it to the debug message area, can be used as a starting place to implement support for all controllers and gamepads being used on the AtariVCS.  You should test the Client-Server operation on your Windows machine.  You can also point the client to your VCS, and run the binary version built in IDE 589, and test your controller output.  Then, you can refer to the last section of this document titled "Controller Notes" to attempt to support those specialty controllers.   Note that it may be helpful to skim the detection code in *Method 2: Example for Multiplayer, One Player's Step* but you won't be able to use any gamepad_ functions.  Instead, you need to inspect the JSON that the server is providing, and use that as the source for all of your gamepads (Atari or other brands).  It's just broadcasting the ICDevice and ICDeviceState parts of the InputCandy features described in the InputCandy wiki: https://github.com/LAGameStudio/InputCandy/wiki/InputCandy%3AAdvanced-Class-Reference
 
-You'll need the object from the ICAtariClassicClient, above, and a copy of InputCandy:
+You'll need the object from the ICAtariClassicClient, above, and a copy of InputCandy.  In the o_AtariClassicClient object, you need to change the variable name from "classics" to "pad_server" ...
 
 This function will swap between InputCandy and "remote" InputCandy (on the controller server), so if you switch your game code to use InputCandy Advanced, without the ICActions parts, you should be fine on both Windows and Atari:
 
 ```
+// Returns only the controller state for a given player number
 function GetPlayerControllerProfile(pn) {
 	var player_index=pn-1;
-        if ( !variable_global_exists("pad_server") ) return false; // in the ICAtariClassicClient, this variable is called "classics", but its the same
+        if ( !variable_global_exists("pad_server") ) return false;
 	if ( is_struct(global.pad_server) and player_index < array_length(global.pad_server.d) ) return global.pad_server.d[player_index];
 	var dv=__INPUTCANDY.players[player_index].device;
 	if ( dv == none or dv < 0 or dv >= array_length(__INPUTCANDY.devices) ) return false;
 	return __INPUTCANDY.devices[dv];
+}
+
+// Returns only the controller state for a given player number
+function GetPlayerControllerState(pn) {
+	var player_index=pn-1;
+        if ( !variable_global_exists("pad_server") ) return false;
+	if ( is_struct(global.pad_server) and player_index < array_length(global.pad_server.s) ) return global.pad_server.d[player_index];
+	var dv=__INPUTCANDY.players[player_index].device;
+	if ( dv == none or dv < 0 or dv >= array_length(__INPUTCANDY.devices) ) return false;
+	return __INPUTCANDY.states[dv];
+}
+
+// Returns by player number a gamepad's basic info
+function GetGamepadInfo( pn ) {
+	var pi=pn-1;
+	var hand=GetPlayerControllerProfile(pn);
+	if ( !is_struct(hand) ) return false;
+	if ( hand.type != ICDeviceType_gamepad ) return false;
+	var dv=hand.slot_id;
+	// AtariVCS Modern
+	if ( hand.desc == "Atari Game Controller"
+	  or hand.desc == "Atari Controller"
+	  or hand.desc == "Atari VCS Modern Controller"
+	  or ( /*os_type == os_linux and*/ gamepad_button_count(dv) == 11 and gamepad_hat_count(dv) == 1 and gamepad_axis_count(dv) == 6 ) 
+	  or ( hand.button_count==11 and hand.hat_count==1 and hand.axis_count==6 ) )
+	return { player_number: pn, player_index: pi, slot_id: dv, classic: false, modern: true, xbox: false, profile: hand, state: GetPlayerControllerState(pn) };
+	// XInput Controller
+	if ( string_pos("x-box", string_lower(hand.desc)) or (string_pos("xbox", string_lower(hand.desc)) or string_pos("xinput", string_lower(hand.desc))) )
+	return { player_number: pn, player_index: pi, slot_id: dv, classic: false, modern: false, xbox: true, profile: hand, state: GetPlayerControllerState(pn)  };
+	// AtariVCS Classic
+	if ( hand.desc == "Classic Controller" or hand.desc == "Atari Classic Controller"
+	   or ( hand.button_count==5 and hand.hat_count==1 and hand.axis_count==1 ) )
+	return { slot_id: dv, classic: true, modern: false, xbox: false }; 
+	// otherwise, a yet-to-be-categorized controller
+	return { player_number: pn, player_index: pi, slot_id: dv, classic: false, modern: false, xbox: false, profile: hand, state: GetPlayerControllerState(pn) }; 
 }
 ```
 
