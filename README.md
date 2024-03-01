@@ -44,7 +44,7 @@ Please note future versions may not work exactly the same, but similarly.  Speci
 * Once you are able to successfully build a Linux Build "AppImage" version of your Game and get back a successfully built file, carry on to Step 2.
 
   
-### Step 3: You need to move some files around and re-zip them, with special permissions, and you are going to need a small wrapper script. 
+### Step 2: You need to move some files around and re-zip them, with special permissions, and you are going to need a small wrapper script. 
 
 On the Ubuntu side, you need to have a copy of your game recently exported as an AppImage.  Locate it in a terminal or via SSH and type the following shell command:
 
@@ -119,14 +119,14 @@ runme.sh       (the script)
 ```
  - To Zip your game, go into the folder ``YourGame_unwrapped`` and try:  ``zip -r -v ..\YourGame_versionX.zip . 
 
-### Step 4: Upload to the Dashboard and Publish.  Download on your VCS and test. 
+### Step 3: Upload to the Dashboard and Publish.  Download on your VCS and test. 
 
 * If it executes and doesn't crash immediately, you've got all the lib folders.
 * If it crashes for another reason, there may be a bug in your game.
 * On the Ubuntu build machine, you can also run your game there from a terminal and see the output.  You should have done that prior to zipping.  If you don't see "YoyoGames Runner" then you haven't collected enough lib files yet, go and repeat step 3. 
 * If you see something like "Cannot open Display X" this means you've run it from a terminal that is not running inside the Ubuntu GUI and this is expected behavior and is not the source of any crash on the Atari. The crash must be happening after that, so it is an issue with your game.  It does mean that you have collected all the lib files properly, though.
 
-### Step 5: (Optional)  Running your game remotely via PuttySSH or equivalent shell
+### Step 4: (Optional)  Running your game remotely via PuttySSH or equivalent shell
 
 If you want to "force display 0", you can try running it like this instead, to see if it works in Ubuntu: ``export DISPLAY=:0 ; ./YourGame.x86_64`` or in a script like this:
 ```
@@ -145,7 +145,7 @@ The above code will tell the game to run on display 0 (the Atari HDMI port) -- i
 If you are attempting to use the TCP/IP ICAtariControllerServer, you will need to download and test by building the ICAtariClassicClient project, running the server, integrating the client into your game, and using it as solution on your Atari VCS.   Read the next section which covers this.
 
 
-### Step 6: Using the TCP/IP Server with your GameMaker game to support Atari VCS console input
+### Step 5: Using the TCP/IP Server with your GameMaker game to support Atari VCS console input
 
 So, to solve the issues with the controllers, Lost Astronaut Studios built a TCP/IP server that spits out devices, their states, mouse and keyboard information.  Your game can connect to it on the same "localhost" and get really fast updates to controller states (gamepad buttons, axis, hats, plus keyboard keys, mouse position and click state, etc.)  ... around this you can build support for the XBOX, PS4, Atari VCS Modern and Atari VCS Classic gamepads -- really any SDL-compatible USB device that is detectable as a joystick/gamepad/etc.
 
