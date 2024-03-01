@@ -222,11 +222,12 @@ This function will swap between InputCandy and "remote" InputCandy (on the contr
 
 ```
 function GetPlayerControllerProfile(pn) {
-    var player_index=pn-1;
-        if ( !variable_global_exists("pad_server") ) return false;         if ( is_struct(global.pad_server) and player_index < array_length(global.pad_server.d) ) return global.pad_server.d[player_index];
-    var dv=__INPUTCANDY.players[player_index].device;
-    if ( dv == none or dv < 0 or dv >= array_length(__INPUTCANDY.devices) ) return false;
-    return __INPUTCANDY.devices[dv];
+	var player_index=pn-1;
+        if ( !variable_global_exists("pad_server") ) return false; // in the ICAtariClassicClient, this variable is called "classics", but its the same
+	if ( is_struct(global.pad_server) and player_index < array_length(global.pad_server.d) ) return global.pad_server.d[player_index];
+	var dv=__INPUTCANDY.players[player_index].device;
+	if ( dv == none or dv < 0 or dv >= array_length(__INPUTCANDY.devices) ) return false;
+	return __INPUTCANDY.devices[dv];
 }
 ```
 
