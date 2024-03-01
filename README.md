@@ -199,7 +199,6 @@ function GetGamepadInfo( pn ) {
 	if ( hand.desc == "Atari Game Controller"
 	  or hand.desc == "Atari Controller"
 	  or hand.desc == "Atari VCS Modern Controller"
-	  or ( /*os_type == os_linux and*/ gamepad_button_count(dv) == 11 and gamepad_hat_count(dv) == 1 and gamepad_axis_count(dv) == 6 ) 
 	  or ( hand.button_count==11 and hand.hat_count==1 and hand.axis_count==6 ) )
 	return { player_number: pn, player_index: pi, slot_id: dv, classic: false, modern: true, xbox: false, profile: hand, state: GetPlayerControllerState(pn) };
 	// XInput Controller
