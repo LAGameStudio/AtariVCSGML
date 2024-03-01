@@ -1,4 +1,4 @@
-If you wish to review how to use IDE 589, read the README.old.md
+*If you wish to review how to use IDE 589, or the rationale behind what's being described in this document, please read the README.old.md*
 
 This document deals with getting your GameMaker (or Godot 4) game to work on the AtariVCS.
 
