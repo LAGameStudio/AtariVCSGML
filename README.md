@@ -4,7 +4,7 @@ This document deals with getting your GameMaker (or Godot 4) game to work on the
 
 Note that we've recently released a raw TCP/IP version to help Godot 4 users detect and manage the Atari Classic Controller on the VCS.
 
-Feel free to report issues here, or directly to "Retrofriends" on the Lost Astronaut discord in the #inputcandy channel: https://discord.gg/fFJYFsaC7w -- you can also come here to ask for some help.
+Feel free to report issues here, or directly to "Retrofriends" on the Lost Astronaut discord in the #inputcandy channel: https://discord.gg/fFJYFsaC7w <-- you can also come here to ask for some help.
 
 # Release Packages
 
