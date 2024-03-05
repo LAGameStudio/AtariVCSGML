@@ -2,19 +2,19 @@
 
 This document deals with getting your GameMaker (or Godot 4) game to work on the AtariVCS.
 
+In new versions of Godot and GameMaker, you won't be able to reliable use SDL to handle the controllers because _reasons_.  So, you will have to specially package your executable in the most portable way, and then rely on a TCP/IP server to read state information from each device profile (along with the list of connected devices), and there is a way to, in GameMaker, easily map this to InputCandy's ICDeviceState and ICDevice classes (see the wiki over there at https://github.com/LAGameStudio/InputCandy)
+
 Note that we've recently released a raw TCP/IP version to help Godot 4 users detect and manage the Atari Classic Controller on the VCS.
 
 Feel free to report issues here, or directly to "Retrofriends" on the Lost Astronaut discord in the #inputcandy channel: https://discord.gg/fFJYFsaC7w <-- you can also come here to ask for some help.
 
-# Release Packages
+# Essential Downloads from this Repo
 
-* GameMaker localhost network client-server for All Controllers (InputCandy-over-TCPIP), localhost port 1234 (TCP/IP) and 1235 (UDP)
-	* https://github.com/LAGameStudio/AtariVCSGML/releases/tag/IC-Game-Input-Server-HD
-* GameMaker localhost network client-server for Classic, localhost port 1234 (TCP/IP) and 1235 (UDP)
-	* https://github.com/LAGameStudio/AtariVCSGML/releases/tag/Classic
- 	* https://github.com/LAGameStudio/AtariVCSGML/releases/tag/Client-Server
-* Generic TCP/IP server that does not filter for GameMaker clients, localhost port 1234 (TCP/IP) and 1235 (UDP) (use with Godot4, Unity, whatever)
-	* https://github.com/LAGameStudio/AtariVCSGML/releases/tag/Raw-Servers Raw TCP/IP version
+* Release: https://github.com/LAGameStudio/AtariVCSGML/releases/tag/Oneshot-Servers
+ * GameMaker games use this server: https://github.com/LAGameStudio/AtariVCSGML/releases/download/Oneshot-Servers/AtariVCSGamemakerGamepadServer_Oneshot-prebuilt-589.zip
+ * Godot (and other engines) use this server: https://github.com/LAGameStudio/AtariVCSGML/releases/download/Oneshot-Servers/AtariVCSRawGamepadServer_Oneshot-prebuilt-589.zip
+ * Example client: https://github.com/LAGameStudio/AtariVCSGML/releases/download/Oneshot-Servers/AtariVCSGamemakerGamepadClient.project.folder.zip
+* Wrapper functions for ``gamepad_*`` functions that swap between "local" INPUTCANDY (on Windows) and "localhost remote tcp/ip" controller server: https://github.com/LAGameStudio/AtariVCSGML/blob/main/shamepad.gml
 
 ## Preparing your GameMaker game for the Atari VCS OS (without Backdating)
 
