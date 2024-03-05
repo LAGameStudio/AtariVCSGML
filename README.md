@@ -16,7 +16,7 @@ Feel free to report issues here, or directly to "Retrofriends" on the Lost Astro
  * GameMaker games use this server: https://github.com/LAGameStudio/AtariVCSGML/releases/download/Oneshot-Servers/AtariVCSGamemakerGamepadServer_Oneshot-prebuilt-589.zip
  * Godot (and other engines) use this server: https://github.com/LAGameStudio/AtariVCSGML/releases/download/Oneshot-Servers/AtariVCSRawGamepadServer_Oneshot-prebuilt-589.zip
  * Example client: https://github.com/LAGameStudio/AtariVCSGML/releases/download/Oneshot-Servers/AtariVCSGamemakerGamepadClient.project.folder.zip
-* Wrapper functions for ``gamepad_*`` functions that swap between "local" INPUTCANDY (on Windows) and "localhost remote tcp/ip" controller server: https://github.com/LAGameStudio/AtariVCSGML/blob/main/shamepad.gml
+* Wrapper functions for ``gamepad_*`` functions that swap between "local" INPUTCANDY (on Windows) and "localhost remote tcp/ip" controller server (on VCS/Linux): https://github.com/LAGameStudio/AtariVCSGML/blob/main/shamepad.gml
 
 ## Preparing your GameMaker game for the Atari VCS OS (without Backdating)
 
