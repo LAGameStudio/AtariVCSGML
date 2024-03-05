@@ -215,7 +215,7 @@ function GetGamepadInfo( pn ) {
 }
 ```
 
-This means you cannot call ``gamepad_*`` functions anymore.  You need to get the data out of InputCandy's ``device[x]`` structure, described in [ICDeviceState on the InputCandy wiki](https://github.com/LAGameStudio/InputCandy/wiki/InputCandy%3AAdvanced-Class-Reference#icdevicestate) 
+This means you cannot call ``gamepad_*`` functions anymore.  You need to get the data out of InputCandy's ``device[x]`` structure, described in [ICDeviceState on the InputCandy wiki](https://github.com/LAGameStudio/InputCandy/wiki/InputCandy%3AAdvanced-Class-Reference#icdevicestate)   See also the section at the top of this document titled "Essential Downloads"
 
 All you need to do is import the InputCandy project to your game, and instantiate a persistent o_InputCandy object.  Customize the Init({}) function, as demo'ed in the InputCandy project.  This will call the ICInit and ICStep for you.  You won't need to worry about ICMatch or ICMatchDirectional or the InputCandySimple code, just read the values as though you called gamepad_* but instead get them from the ICDeviceState per-frame snapshot.
 
