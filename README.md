@@ -1,3 +1,5 @@
+# Making your game work on the AtariVCS
+
 *If you wish to review how to use IDE 589, or the rationale behind what's being described in this document, please read the README.old.md*
 
 This document deals with getting your GameMaker (or Godot 4) game to work on the AtariVCS.
@@ -8,7 +10,7 @@ Note that we've recently released a raw TCP/IP version to help Godot 4 users det
 
 Feel free to report issues here, or directly to "Retrofriends" on the Lost Astronaut discord in the #inputcandy channel: https://discord.gg/fFJYFsaC7w <-- you can also come here to ask for some help.
 
-# Essential Downloads from this Repo
+## Essential Downloads from this Repo
 
 * Release: https://github.com/LAGameStudio/AtariVCSGML/releases/tag/Oneshot-Servers
  * GameMaker games use this server: https://github.com/LAGameStudio/AtariVCSGML/releases/download/Oneshot-Servers/AtariVCSGamemakerGamepadServer_Oneshot-prebuilt-589.zip
