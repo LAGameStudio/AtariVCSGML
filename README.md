@@ -153,10 +153,28 @@ So, to solve the issues with the controllers, Lost Astronaut Studios built a TCP
 
 You'll want to download the projects, but you'll also want to download the AtariVCS pre-built gamepad server binary, which was built with version IDE 2.3.5.589 and use that:
 
-1. Get the pre-built-in-IDE-589 server binary, to bundle with your AtariVCS game, and to run alongside: https://github.com/LAGameStudio/AtariVCSGML/releases/tag/IC-Game-Input-Server-HD
-2. Get the client project to learn from and test "networked" gamepad input state acquisition, here: https://github.com/LAGameStudio/AtariVCSGML/releases/tag/Client-Server
+1. Get the pre-built-in-IDE-589 server binary "Oneshot" in the latest release.
+2. Get the client code latest version in the latest release.
 
 The Client-Server bundle contains a version that just broadcasts classic information, but the client, also written to receive whatever data is sent from the server and output it to the debug message area, can be used as a starting place to implement support for all controllers and gamepads being used on the AtariVCS.  You should test the Client-Server operation on your Windows machine.  You can also point the client to your VCS, and run the binary version built in IDE 589, and test your controller output.  Then, you can refer to the last section of this document titled "Controller Notes" to attempt to support those specialty controllers.   Note that it may be helpful to skim the detection code in *Method 2: Example for Multiplayer, One Player's Step* but you won't be able to use any gamepad_ functions.  Instead, you need to inspect the JSON that the server is providing, and use that as the source for all of your gamepads (Atari or other brands).  It's just broadcasting the ICDevice and ICDeviceState parts of the InputCandy features described in the InputCandy wiki: https://github.com/LAGameStudio/InputCandy/wiki/InputCandy%3AAdvanced-Class-Reference
+
+If you are going to be using the server, you need to use the OneShot server in the releases section: https://github.com/LAGameStudio/AtariVCSGML/releases/tag/Oneshot-Servers
+
+Your invocation script will change to:
+
+```
+#!/bin/sh
+cd /where/your/game/root/is/
+export LD_LIBRARY_PATH=./usr/lib:${LD_LIBRARY_PATH}
+# put the server in the background, choose Dev-Staging until you are satisified, then choose Production
+./server/AtariControllerServer &
+# let the logo show and the server start up
+sleep 3
+# launch your game
+./YourGame.x86_64
+exit 0
+```
+
 
 You'll need the object from the ICAtariClassicClient, above, and a copy of InputCandy.  In the o_AtariClassicClient object, you need to change the variable name from "classics" to "pad_server" ...
 
