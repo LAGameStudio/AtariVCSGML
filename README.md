@@ -5,6 +5,7 @@ Games that have used or benefitted or contributed to this document include:
 - Popcorn Rocket by Battle Geek Plus, LLC ( https://www.battlegeekplus.com/ ) @ https://www.popcornrocket.com/
 - 8-Bit Bakery by Shiphaven Games @ https://shiphavengames.com/
 - Uncle Flip's Sky Frizz @ https://liminalist-contraptions.itch.io/
+- Battle Rockets and Ultra Mission @ https://www.gumbo-machine.com/
 
 # Making your game work on the AtariVCS
 
