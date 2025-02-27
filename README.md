@@ -1,4 +1,4 @@
-This repo contains code and help for GameMaker games to run on the Atari VCS.
+This repo contains code and help for GameMaker games (and some other kinds) to run on the Atari VCS.
 
 Games that have used or benefitted or contributed to this document include:
 - Circus Interstellar by EttinSoft @ https://steamcommunity.com/app/984030
