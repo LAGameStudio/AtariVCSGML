@@ -12,10 +12,11 @@ Games that have used or benefitted or contributed to this document include:
 *If you wish to review how to use IDE 589, or the rationale behind what's being described in this document, please read the README.old.md*
 
 This document deals with
-- Getting your GameMaker (or Godot 4, or custom Linux-compileable game engine) game to work on the AtariVCS.  
+- Getting your GameMaker game (or Godot 4 game, or other custom Linux-compileable game engine) to work on the AtariVCS.  
 - It's primarily written for GameMaker versions >= 2.3.5 or released after 2022.  
 - On one hand it talks about getting the controllers to work.  
 - On the other hand, it tells you how to prepare your package for the Atari VCS Store ecosystem.
+- It mentions a seperate project called InputCandy which is also on the VCS Store and is used for diagnostic purposes and to help GameMaker Developers by providing GML controller-specific code that has already been tested on the VCS.
 
 ## Time commitment
 
