@@ -6,6 +6,7 @@ Games that have used or benefitted or contributed to this document include:
 - 8-Bit Bakery by Shiphaven Games @ https://shiphavengames.com/
 - Uncle Flip's Sky Frizz @ https://liminalist-contraptions.itch.io/
 - Battle Rockets and Ultra Mission @ https://www.gumbo-machine.com/
+- My game, Apolune 2 by Lost Astronaut Studios @ https://lostastronaut.com
 
 # Making your game work on the AtariVCS
 
