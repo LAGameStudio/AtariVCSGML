@@ -16,7 +16,7 @@ This document deals with
 - It's primarily written for GameMaker versions >= 2.3.5 or released after 2022.  
 - On one hand it talks about getting the controllers to work.  
 - On the other hand, it tells you how to prepare your package for the Atari VCS Store ecosystem.
-- It mentions a seperate project called InputCandy which is also on the VCS Store and is used for diagnostic purposes and to help GameMaker Developers by providing GML controller-specific code that has already been tested on the VCS.
+- It mentions a separate project called InputCandy which is also on the VCS Store and is used for diagnostic purposes and to help GameMaker Developers by providing GML controller-specific code that has already been tested on the VCS.  That's here: https://github.com/LAGameStudio/InputCandy
 
 ## Time commitment
 
