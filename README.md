@@ -11,11 +11,15 @@ Games that have used or benefitted or contributed to this document include:
 
 *If you wish to review how to use IDE 589, or the rationale behind what's being described in this document, please read the README.old.md*
 
-This document deals with getting your GameMaker (or Godot 4) game to work on the AtariVCS.  It's primarily written for GameMaker.
+This document deals with getting your GameMaker (or Godot 4) game to work on the AtariVCS.  It's primarily written for GameMaker versions >= 2.3.5 or released after 2022.  On one hand it talks about getting the controllers to work.  On the other hand, it tells you how to prepare your package for the Atari VCS Store ecosystem.
 
-RyanBGP of Popcorn Rocket said he built on Ubuntu 20.04, using GameMaker IDE v2024.2.0 and GameMaker Runtime v2024.2.0.163 and used InputCandy Simple (no server or anything wild) and didn't support the AtariVCS Classic Controller and had it all done and ready to launch in a couple of days.
+## Time commitment
 
-In _some_ new versions of Godot and GameMaker, you won't be able to reliably use SDL to handle the controllers because _reasons_.  So, you will have to specially package your executable in the way described here, with an ancillary utility server (provided for you) - an ephemeral TCP/IP server can be used to read state information from each device profile (along with the list of connected devices), and there is a way to, in GameMaker, easily map this to InputCandy's ICDeviceState and ICDevice classes (see the wiki over there at https://github.com/LAGameStudio/InputCandy) so that you can write sane code that doesn't use GameMaker's ``gamepad_*`` functions directly on Windows and Linux.
+RyanBGP of Popcorn Rocket said he built on Ubuntu 20.04, using GameMaker IDE v2024.2.0 and GameMaker Runtime v2024.2.0.163 and used our code for InputCandy Simple (no TCP/IP server or anything wild, as described below) and didn't support the AtariVCS Classic Controller and had it all done and ready to launch in a couple of days.
+
+## Can't detect the Classic?  No problem, we have a solution
+
+In _some_ new versions of Godot and GameMaker, you won't be able to reliably use SDL to handle the controllers (particularly the Classic) because _reasons_.  So, you will have to specially package your executable in the way described here, with an ancillary utility server (provided for you) - an ephemeral TCP/IP server can be used to read state information from each device profile (along with the list of connected devices), and there is a way to, in GameMaker, easily map this to InputCandy's ICDeviceState and ICDevice classes (see the wiki over there at https://github.com/LAGameStudio/InputCandy) so that you can write sane code that doesn't use GameMaker's ``gamepad_*`` functions directly on Windows and Linux.
 
 Note that we've recently released a raw TCP/IP version to help Godot 4 users detect and manage the Atari Classic Controller on the VCS.
 
