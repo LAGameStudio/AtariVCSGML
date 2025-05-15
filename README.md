@@ -1,5 +1,7 @@
 This repo contains code and help for GameMaker games (and some other kinds) to run on the Atari VCS.
 
+If you need further assistance, visit me on the Lost Astronaut discord, link at lostastronaut.com
+
 Games that have used or benefitted or contributed to this document include:
 - Circus Interstellar by EttinSoft @ https://steamcommunity.com/app/984030
 - Popcorn Rocket by Battle Geek Plus, LLC ( https://www.battlegeekplus.com/ ) @ https://www.popcornrocket.com/
