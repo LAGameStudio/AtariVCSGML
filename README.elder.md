@@ -12,7 +12,7 @@ Games that have used or benefitted or contributed to this document include:
 
 # Making your game work on the AtariVCS
 
-*If you wish to review how to use IDE 589, or the rationale behind what's being described in this document, please read the README.old.md*
+*If you wish to review how to use IDE 589, or the rationale behind what's being described in this document, please read the README.eldest.md*
 
 This document deals with
 - Getting your GameMaker game (or Godot 4 game, or other custom Linux-compileable game engine) to work on the AtariVCS.  
