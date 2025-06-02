@@ -8,13 +8,13 @@ For GameMaker Developers, what you'll need:
 - A windows computer running GameMaker IDE
 - Your VCS
 - A copy of InputCandy downloaded from the VCS Store (for diagnostic purposes)
-- A copy of [[https://github.com/TeraTermProject/teraterm/releases|TeraTerm]] and a copy of WinSCP from WinSCP.net (be careful which download button you press!)
+- A copy of (Tera Term|https://github.com/TeraTermProject/teraterm/releases|TeraTerm) and a copy of WinSCP from WinSCP.net (be careful which download button you press!)
 - This document (to guide you on the creation of o_ControllerController, and your scripts)
 - The sample script
 - Your bundle.ini
-- The libs we provided [[https://github.com/LAGameStudio/AtariVCSGML/releases/download/1-17-2024/Atari_sample_libs_and_Script_1-17-2024_GMS.zip|here]]
-- The [[https://github.com/LAGameStudio/AtariVCSGML/releases/download/Oneshot-Servers/AtariVCSGamemakerGamepadServer_Oneshot-prebuilt-589-Production.zip|Oneshot Production server]]
-- [[https://github.com/LAGameStudio/AtariVCSGML/blob/main/j_controls.gml|j_controls.gml]] (from this repo) as a starting place for your controller abstraction layer
+- The libs we provided (here|https://github.com/LAGameStudio/AtariVCSGML/releases/download/1-17-2024/Atari_sample_libs_and_Script_1-17-2024_GMS.zip|here)
+- The (Oneshot Production Server|https://github.com/LAGameStudio/AtariVCSGML/releases/download/Oneshot-Servers/AtariVCSGamemakerGamepadServer_Oneshot-prebuilt-589-Production.zip|Oneshot Production server)
+- (j_controls.gml|https://github.com/LAGameStudio/AtariVCSGML/blob/main/j_controls.gml|j_controls.gml) (from this repo) as a starting place for your controller abstraction layer
 - Time and patience
 
 
