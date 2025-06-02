@@ -250,23 +250,49 @@ Device ID 03000000503200000210000011010000 Shows "Atari Game Controller" as name
 - Right Trigger = Axis 6th in list (length-1), goes from 0 to 1 depending on how much you have pulled it, aka axis[5]
 - Left Trigger = Axis 2 3rd in list goes from 0 to 1 depending on how much you have pulled it, aka axis[2]
 - Dpad = Hat 0, Left = "Right", Up = "Up", Right = "Down", Down = "Left"
-- Fuji button registers as "Back/Select" (gp_select)
-- Back button registers as "Left Trigger" (gp_shoulderlb)
-- Menu burger button registers as "Right Trigger" (gp_shoulderrb)
-- Right stick button registers as "Left Stick" button (gp_stickl)
-- Left stick button registers as "Start" button (gp_start)
+- Fuji button registers as "Back/Select" (gp_select) (button 8)
+- Back button registers as "Left Trigger" (gp_shoulderlb) (button 6)
+- Menu burger button registers as "Right Trigger" (gp_shoulderrb) (button 7)
+- Right stick button registers as "Left Stick" button (gp_stickl) (button 4)
+- Left stick button registers as "Start" button (gp_start) (button 5)
+- "Y" is button 2
+- "A" is button 0
+- "X" is button 3
+- "B" is button 1
 
 ## Classic Controller: (on bluetooth or not) (Does not seem to be detected unless you "backport")
 
 Does not have a device name or vendor info ("Unknown"); Note that on a Windows PC, "Classic Controller" is the name, but the device description is blank on the VCS in situ. Device ID 0000000000000000021000000000000 (This value changes due to the fact that it is an error code (21) that indicates memory is full of garbage)
 
-- Top red button 0 is A (gp_face1)
-- Side bar red button 1 is B (gp_face2)
-- "Back" is button 2 "X" (gp_face3)
-- "Menu burger" is button 3 "Y" (gp_face4)
-- "Fuji button" is "Left Shoulder" (gp_shoulderl)
+- Top red button 0 is A (gp_face1) (button 0)
+- Side bar red button 1 is B (gp_face2) (button 1)
+- "Back" is button 2 "X" (gp_face3) (button 2)
+- "Menu burger" is button 3 "Y" (gp_face4) (button 3)
+- "Fuji button" is "Left Shoulder" (gp_shoulderl) (button 4)
 - JoyStick = hat0, Up = "Up", Down = "Left", Left = "Right", Right = "Down"
 - Twist/paddle is Axis 0, Axis 0-1 sometimes oscillates by .01 , aka axis[0]
+
+This is my code for using the twist to detect clockwise or counterclockwise, on an o_Player object it has a variable "twister" that is initially unset.  In the step:
+
+```
+if ( j_type(pn,"classic") ) { //.... Twist support for classic only..
+	var twister_now = j_axis_value(player_number,0); // floor(gamepad_axis_value(dv,0) * 10)/10.0;
+	if ( !variable_instance_exists(id,"twister") ) twister=twister_now;
+	else {
+		var diff=twister_now-twister;
+		if ( abs(diff) > 0.02 ) { // need to ignore small values, essentially noise threshold
+			if ( (twister < 0 and twister_now < 0) or (twister > 0 and twister_now > 0) ) {
+				if ( diff > 0 ) { // means clockwise
+						/* do something w/ or w/o diff value */
+				} else if ( diff < 0 ) { // means counter clockwise
+						/* do something */
+				}
+			}
+		}
+		twister=twister_now;
+	}
+}
+```
 
 # Final Thoughts
 
