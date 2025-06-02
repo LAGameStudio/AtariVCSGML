@@ -242,11 +242,11 @@ In these notes, A is "B" means "I pressed A but the controller said B"
 Device ID 03000000503200000210000011010000 Shows "Atari Game Controller" as name; Note that on a Windows PC, the Modern controller appears as "XInput Controller"
 
 - Left Thumb Stick:
-- - Left-Right movement: Registers as left horizontal (gp_axislh), goes 0-1 where 0.5 is the center, Left is 0, Right is 1
-- - Up-Down movement: Registers as left vertical (gp_axislv), Up is 0, middle is 0.5, Down is 1,
+ - Left-Right movement: Registers as left horizontal (gp_axislh), goes 0-1 where 0.5 is the center, Left is 0, Right is 1
+ - Up-Down movement: Registers as left vertical (gp_axislv), Up is 0, middle is 0.5, Down is 1,
 - Right Thumb Stick:
-- - Left-Right movement: Registers as right horizontal (gp_axisrh), goes 0-1 where 0 is left and 1 is right and 0.5 is centered
-- - Up-Down movement: Registers as axis 4 (fifth in list, list length - 2), Up is 1 down is 0 center is 0.5 aka axis[3]
+ - Left-Right movement: Registers as right horizontal (gp_axisrh), goes 0-1 where 0 is left and 1 is right and 0.5 is centered
+ - Up-Down movement: Registers as axis 4 (fifth in list, list length - 2), Up is 1 down is 0 center is 0.5 aka axis[3]
 - Right Trigger = Axis 6th in list (length-1), goes from 0 to 1 depending on how much you have pulled it, aka axis[5]
 - Left Trigger = Axis 2 3rd in list goes from 0 to 1 depending on how much you have pulled it, aka axis[2]
 - Dpad = Hat 0, Left = "Right", Up = "Up", Right = "Down", Down = "Left"
