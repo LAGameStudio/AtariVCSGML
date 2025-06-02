@@ -65,7 +65,6 @@ Note in step 5, this is how you can, via SSH, tell the VCS to run something on t
 7) Test in the Store app
 8) (optional) Try using the Fuji button to see if the audio bug occurs (known issue, no known fix)
 9) Rinse, repeat
-
 10) Once you are ready, tell @davpa to get his ass in gear!
 
 # Appendix One: The o_ControllerController object
