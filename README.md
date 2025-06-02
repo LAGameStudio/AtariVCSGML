@@ -78,7 +78,8 @@ Add Create Event:
 ```
 global.pad_data=false;
 global.pad_server=id;
-
+attempts=0;
+max_attempts=50;
 host="127.0.0.1"
 
 host="localhost"
@@ -90,6 +91,7 @@ port=1234
 socket = network_create_socket(network_socket_tcp);
 
 remote = network_connect(socket,host,port);
+attempts++;
 if ( remote < 0 ) {}
 else{ //Send string
     var t_buffer = buffer_create(256, buffer_grow, 1);
@@ -102,7 +104,7 @@ else{ //Send string
 
 Add Step Event:
 ```
-if ( remote < 0 ) {	
+if ( remote < 0 and attempts < max_attempts ) {	
 	remote = network_connect(socket,host,port);
 	if ( remote < 0 ) {}
 else{ //Send string
