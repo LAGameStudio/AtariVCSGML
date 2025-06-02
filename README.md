@@ -63,7 +63,7 @@ Note in step 5, this is how you can, via SSH, tell the VCS to run something on t
 5) Copy the Ubuntu-made-zip to your Windows machine, and upload via Chrome (or upload directly via Chrome but Ubuntu, but your mileage may vary) to the Atari Dev Dashboard
 6) Browse to the Atari VCS Games and update your game by inspecting its details.
 7) Test in the Store app
-8) (optional) Try using the Fuji button to see if the audio bug occurs
+8) (optional) Try using the Fuji button to see if the audio bug occurs (known issue, no known fix)
 9) Rinse, repeat
 
 10) Once you are ready, tell @davpa to get his ass in gear!
