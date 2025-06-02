@@ -48,8 +48,7 @@ For GameMaker Developers, what you'll need:
 2) Copy the staging folder to your /home/user folder on the AtariVCS
 3) Enter the staging folder
 4) Use the Command icon, enter "chmod 0777 -R *" to set the proper permissions on every file in your staging folder.
-5) To test immediately, click the Command icon (looks like a dos prompt) in the WinSCP command bar, and type:
-     ``export DISPLAY=:0 ; ./runmefirst``
+5) To test immediately, click the Command icon (looks like a dos prompt) in the WinSCP command bar, and type: ```export DISPLAY=:0 ; ./runmefirst```
 
 Note that steps 3,4,5 can be done either in WinSCP or in TeraTerm (or Putty, but I no longer recommend it)
 
