@@ -1,6 +1,10 @@
 # Getting your game working on the VCS
 
-This document focuses on GameMaker primarily.   Take a look at this video that describes everything, no matter what engine you use: []
+This document focuses on GameMaker primarily.
+
+Also, [Take a look at this video that describes everything in this Repo and how to use it, no matter what engine you use](https://youtu.be/ntkZz0RVmjE)
+
+Follow the steps below if you have a GameMaker game.
 
 No matter what engine you are using, feel free to report issues here, or contact me directly to help your game get on the VCS by reaching out to "Retrofriends" on the Lost Astronaut discord in the #chat channel: https://discord.gg/fFJYFsaC7w <-- you can also come here to ask for some help.
 
