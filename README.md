@@ -1,6 +1,6 @@
 # Getting your game working on the VCS
 
-This document focuses on GameMaker primarily.
+This document focuses on GameMaker primarily.  Apparently there is a beta version of GameMaker that eliminates the need for the libs folder and the server.  But any other engine having issues with the controllers, or any other version of GameMaker, will require this repo.
 
 Also, [Take a look at this video that describes everything in this Repo and how to use it, no matter what engine you use](https://youtu.be/ntkZz0RVmjE)
 
