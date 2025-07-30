@@ -298,6 +298,24 @@ if ( j_type(pn,"classic") ) { //.... Twist support for classic only..
 }
 ```
 
+## CX Stick
+ (detected using inputcandy)
+```
+DESC: Retro Games LTD THECXSTICK
+GUID: 03000000591c00002600000010010000
+
+Fire button:  X   button[2]
+Joy Up/Dn = Axis 0 0.0 -> 1.0 (left stick vert)
+Joy Left/Right = Axis 1 -> 0.0 -> 1.0  (left stick horiz)
+Ring:
+Up =  B
+Down = Left Shoulder
+Left = Y
+Right = A
+Back = Left Trigger
+Menu top right = Right Trigger
+```
+
 # Final Thoughts
 
 If you need further assistance, visit me on the Lost Astronaut discord, link at lostastronaut.com
