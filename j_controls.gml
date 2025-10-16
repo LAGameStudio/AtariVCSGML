@@ -1,86 +1,14 @@
 /*
-  GMS_any (can be refactored easily to earlier versions)
-  
-  InputCandySimple
-  
-  This is the simplest form with the widest availability.  You can make good games with it,
-  but it doesn't take full use of the controller.  Consider this a "NES" controller.
-  
- Extend it if you want.  The patterns are already there for more than 8 players, or to attach
- additional button checks.
- 
- Lost Astronaut used this control scheme in an easy to pick up game for 8 players called Apolune 2,
- made for the Atari, and made to be super easy to play.  You can add additional support for
- more buttons (most controllers have left/right shoulder and ABXY) but the Atari VCS's "classic joystick"
- only has two buttons, so "A", "B" and "AB".  
-  
-  Features:
-  
-	 - Basic controls are Up, Down, Left, Right, A, B
-     - Supports up to 8 simultaneous players.  (numbered 1,2,3,4,5,6,7,8)
-	 - Control events are "On" or "Not On", no "held for time" detection or anything like that,
-	   so you will find yourself using this pattern:
-	      if ( controls.A(player_num) and heat == 0 ) { cooldown=heat; heat-=frametime; do_action(); }
-	   Use this pattern to avoid firing bullets too often or rejumping every frame
-	 - Keyboard (2 Players):
-		- maps the "Arrow Keys" and "WASD" to Player 1 as Left/Right/Up/Down, 
-	      with Left Ctrl as "A" and Left Shift as "B" -- QWERTY keyboards, right-handed friendly
-		- maps the Numpad (Numlock must be on) and/or IJKL to Player 2, where Right Control,
-	      Right Shift are "A" and "B" -- ambidextrous friendly, QWERTY keyboards
-	 - Mouse: not supported.  Write that into your game yourself using the standard GML functions.
-	 - On controllers:
-	    - Maps XY to AB
-		- Maps LRUD redundantly to provide maximum number of options.
-		- Uses a commonly used threshold value to turn axis sticks into dpads
-		- Uses the controlled ID as the player ID
-		- Can be extended to use Start/Select-or-Back/Shoulders/Triggers, but doesn't support them
-	 - If a user disconnects a controller then reconnects it, it most likely causes reordering.
-	 - If a user connects a new controller, it will probably be the last item in the list.
-	 
-  Usage example:
-  
-     In your PlayerObject.Create event:
-	 
-	 controls=InputCandySimple();
-	 player_number=1;  // change this to a different number later...
-	 
-	 In the PlayerObject.Step event:
-	
-	 if ( controls.left(player_number) ) .... move left or whatever
-	 if ( controls.A(player_number) ) ... shoot or whatever
-	 
-	 
-   The functions are:
-      controls.left(player_number)
-      controls.right(player_number)
-      controls.up(player_number)
-      controls.down(player_number)
-      controls.A(player_number)
-      controls.B(player_number)
- 
- 
-  Out-of-the-box it is fairly fast but there is on admitted optimization you can do yourself:
-  
-  Note that one refactor you may wish to make which provides minor optimization is to remove 
-  the following lines from each place they appear other than the "devices" function.
-  
-			var gamepad_count=gamepad_get_device_count();
-			var gamepads=[];
-			var j=0;
-			for ( var i=0; i<gamepad_count; i++ ) if ( gamepad_is_connected(i) ) gamepads[j++]=i;
-			gamepad_count = array_length(gamepads);
-			
- Then, you could simply pass the output of this function to the left() right() etc functions, so
- that this loop would only have to happen once,  Just add a new parameter
- "devices", and refactor the code from there.  
- 
- But it's very very fast already and this makes checking things just a little easier, so I've left
- it out for now. 
- 
+ j_controls - part of AtariVCSGML and works directly with the o_ControllerController example in the Readme.md
+
+ Normally you would call gamepad_* functions in GML but these will fall back to those only when j_server() reveals no active connection to the Atari Classic compatibility server.
+ So, replace "gamepad_button_check" with "j_button_check" and everything should work fine if you've got your server running, and if it is not running, will attempt the gamepad_button_check function instead.
+
+ Additionally, some control simplification functions toward the end of the file that create the NES style "UP DOWN LEFT RIGHT AB" simple controls (usually used as a fallback for menu systems)
  */
  
  function vcs_atari() {
-	 return not (os_type == os_windows); // must be atari then..
+	 return os_get_config() == "VCS" and os_type == os_linux; // must be atari VCS 800 then..
  }
  
  function j_server() {
@@ -92,6 +20,7 @@
 	 return gamepad_get_device_count();
  }
  
+ function j_is_connected(pn) { return j_connected(pn); }
  function j_connected(pn) {
 	 var dv=pn-1;
 	 return dv >= 0 and dv < j_device_count();
@@ -124,6 +53,7 @@
 	 return "other"; // or unknown :(
  } 
  
+ function j_get_description(pn) { return j_name(pn); }
  function j_name(pn) {
 	 if ( j_connected(pn) ) {
 		 if ( j_server() ) return global.pad_data.d[pn-1].desc;
@@ -131,7 +61,8 @@
 	 }
 	 return "";
  }
- 
+
+ function j_get_guid(pn) { return j_get_guid(pn); } 
  function j_guid(pn) {
 	 if ( j_connected(pn) ) {
 		 if ( j_server() ) return global.pad_data.d[pn-1].guid;
@@ -140,10 +71,24 @@
 	 return "";
  }
  
+ function j_get_device_count() { return j_device_count(); }
+ function j_device_count() {
+	 if ( j_server() ) return array_length(global.pad_data.d);
+	 return gamepad_get_device_count();
+ }
+ 
  function j_button_count(pn) {
 	 if ( j_connected(pn) ) {
 		 if ( j_server() ) return global.pad_data.d[pn-1].button_count;
 		 return gamepad_button_count(pn-1);
+	 }
+	 return 0;
+ }
+ 
+ function j_button_check(pn,h) {
+	 if ( j_connected(pn) and h>=0 and h < j_button_count(pn) ) {
+		 if ( j_server() ) return global.pad_data.s[pn-1].buttons[h];
+		 return gamepad_button_check(pn-1,h);
 	 }
 	 return 0;
  }
@@ -195,7 +140,18 @@
 	 }
 	 return 0;
  }
+ 
+ function j_keyboard_check(key) {
+	 if ( j_server() ) {
+	 }
+	 return keyboard_check(key);
+ }
 
+ function j_keyboard_check_released(key) {
+	 if ( j_server() ) {
+	 }
+	 return keyboard_check_released(key);
+ }
 // Everything under here is specific to the actions of my game, which basically only has UP DOWN LEFT RIGHT A B SELECT START
 
 function j_pressing_left(pn) {
