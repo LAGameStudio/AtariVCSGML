@@ -6,7 +6,7 @@
 
  Additionally, some control simplification functions toward the end of the file that create the NES style "UP DOWN LEFT RIGHT AB" simple controls (usually used as a fallback for menu systems)
  */
- 
+  
  function vcs_atari() {
 	 return os_get_config() == "VCS" and os_type == os_linux; // must be atari VCS 800 then..
  }
@@ -15,6 +15,7 @@
 	 return ( global.pad_server != noone and global.pad_data != false );
  }
  
+ function j_get_device_count() { return j_device_count(); }
  function j_device_count() {
 	 if ( j_server() ) return array_length(global.pad_data.d);
 	 return gamepad_get_device_count();
@@ -70,13 +71,7 @@
 	 }
 	 return "";
  }
- 
- function j_get_device_count() { return j_device_count(); }
- function j_device_count() {
-	 if ( j_server() ) return array_length(global.pad_data.d);
-	 return gamepad_get_device_count();
- }
- 
+  
  function j_button_count(pn) {
 	 if ( j_connected(pn) ) {
 		 if ( j_server() ) return global.pad_data.d[pn-1].button_count;
