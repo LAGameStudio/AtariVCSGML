@@ -6,7 +6,7 @@
 
  Additionally, some control simplification functions toward the end of the file that create the NES style "UP DOWN LEFT RIGHT AB" simple controls (usually used as a fallback for menu systems)
 
-New Notes: 
+For Atari controllers, the following signals or axis mappings for buttons:
 
 Modern:                    Classic:
                            
@@ -25,6 +25,13 @@ R-Trigger: axis[5]
 Back: 14
 Menu: 15
 Fuji: 13
+
+See j_axis_value for axis mappings for the modern.
+
+I do not recommend supporting anything other than the Atari Modern and Atari Classic on the VCS if you are using this method,
+even though it is possible to plug in other types of controllers.  Since we are routing everything through Inputcandy it is
+technically possible, but you will have to create a cheat sheet for each controller as seen above.  The only stretch goal
+would be to add support for xbox controllers.
 
  */
   
